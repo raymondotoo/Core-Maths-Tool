@@ -356,6 +356,15 @@ function processMarkdown(container, md) {
         // Restore completed example styling
         restoreExampleCompletionState(container);
 
+        // Add quiz button at end of chapter
+        const section = container.closest('section');
+        if (section && section.id) {
+            const chapterMatch = section.id.match(/chapter(\d+)/);
+            if (chapterMatch && window.addQuizButton) {
+                window.addQuizButton(container, chapterMatch[1]);
+            }
+        }
+
         // Re-typeset maths in chunks to avoid blocking
         if (window.MathJax && MathJax.typesetPromise) {
             typesetMathInChunks(container);
@@ -1306,3 +1315,323 @@ function showKeyboardHints() {
     };
     document.addEventListener('keydown', closeOnEscape);
 }
+
+// ============================================
+// WebAssign-Style Quiz System
+// ============================================
+let currentQuiz = {
+    chapterKey: null,
+    questions: [],
+    currentIndex: 0,
+    answers: [],
+    score: 0,
+    submitted: []
+};
+
+function openQuiz(chapterNum) {
+    const chapterKey = `chapter${chapterNum}`;
+    if (!window.quizBank || !window.quizBank[chapterKey]) {
+        console.error('Quiz not found for chapter:', chapterNum);
+        return;
+    }
+    
+    // Reset quiz state
+    currentQuiz = {
+        chapterKey: chapterKey,
+        questions: window.getQuizQuestions(chapterKey, 5),
+        currentIndex: 0,
+        answers: [],
+        score: 0,
+        submitted: []
+    };
+    
+    // Update UI
+    const modal = document.getElementById('quizModal');
+    const title = document.getElementById('quizTitle');
+    const results = document.getElementById('quizResults');
+    const body = document.getElementById('quizBody');
+    
+    title.textContent = `${window.quizBank[chapterKey].title} Quiz`;
+    results.style.display = 'none';
+    body.style.display = 'block';
+    
+    // Reset buttons
+    document.getElementById('quizSubmit').style.display = 'inline-flex';
+    document.getElementById('quizNext').style.display = 'none';
+    document.getElementById('quizFinish').style.display = 'none';
+    document.getElementById('quizPrev').disabled = true;
+    
+    renderQuestion();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeQuiz() {
+    const modal = document.getElementById('quizModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function renderQuestion() {
+    const q = currentQuiz.questions[currentQuiz.currentIndex];
+    const body = document.getElementById('quizBody');
+    const questionNum = document.getElementById('quizQuestionNum');
+    const scoreEl = document.getElementById('quizScore');
+    const progressBar = document.getElementById('quizProgressBar');
+    
+    // Update progress
+    const progress = ((currentQuiz.currentIndex + 1) / currentQuiz.questions.length) * 100;
+    progressBar.style.width = `${progress}%`;
+    questionNum.textContent = `Question ${currentQuiz.currentIndex + 1} of ${currentQuiz.questions.length}`;
+    scoreEl.textContent = `Score: ${currentQuiz.score}/${currentQuiz.submitted.filter(Boolean).length}`;
+    
+    // Check if already submitted
+    const isSubmitted = currentQuiz.submitted[currentQuiz.currentIndex];
+    const savedAnswer = currentQuiz.answers[currentQuiz.currentIndex];
+    
+    let html = `<div class="quiz-question">${q.question}</div>`;
+    
+    if (q.type === 'multiple') {
+        html += '<div class="quiz-options">';
+        q.options.forEach((opt, i) => {
+            let classes = 'quiz-option';
+            if (savedAnswer === i) classes += ' selected';
+            if (isSubmitted) {
+                classes += ' disabled';
+                if (i === q.correct) classes += ' correct';
+                else if (savedAnswer === i) classes += ' incorrect';
+            }
+            const markers = ['A', 'B', 'C', 'D', 'E', 'F'];
+            html += `
+                <div class="${classes}" onclick="${isSubmitted ? '' : `selectOption(${i})`}">
+                    <span class="quiz-option-marker">${markers[i]}</span>
+                    <span class="quiz-option-text">${opt}</span>
+                </div>
+            `;
+        });
+        html += '</div>';
+    } else if (q.type === 'numeric') {
+        let inputClass = 'quiz-numeric-input';
+        let disabled = '';
+        if (isSubmitted) {
+            disabled = 'disabled';
+            const isCorrect = Math.abs(parseFloat(savedAnswer) - q.answer) <= (q.tolerance || 0);
+            inputClass += isCorrect ? ' correct' : ' incorrect';
+        }
+        html += `
+            <div class="quiz-numeric">
+                <input type="number" step="any" class="${inputClass}" id="numericAnswer" 
+                       value="${savedAnswer !== undefined ? savedAnswer : ''}" 
+                       ${disabled}
+                       placeholder="Enter your answer..."
+                       onkeypress="if(event.key==='Enter'){submitAnswer();}">
+            </div>
+        `;
+    }
+    
+    // Add explanation if submitted
+    if (isSubmitted) {
+        html += `<div class="quiz-explanation show"><strong>Explanation:</strong> ${q.explanation}</div>`;
+    }
+    
+    body.innerHTML = html;
+    
+    // Update MathJax if present
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise([body]).catch(err => console.log('MathJax error:', err));
+    }
+    
+    // Update navigation buttons
+    document.getElementById('quizPrev').disabled = currentQuiz.currentIndex === 0;
+    
+    if (isSubmitted) {
+        document.getElementById('quizSubmit').style.display = 'none';
+        if (currentQuiz.currentIndex === currentQuiz.questions.length - 1) {
+            document.getElementById('quizNext').style.display = 'none';
+            document.getElementById('quizFinish').style.display = 'inline-flex';
+        } else {
+            document.getElementById('quizNext').style.display = 'inline-flex';
+            document.getElementById('quizFinish').style.display = 'none';
+        }
+    } else {
+        document.getElementById('quizSubmit').style.display = 'inline-flex';
+        document.getElementById('quizNext').style.display = 'none';
+        document.getElementById('quizFinish').style.display = 'none';
+    }
+}
+
+function selectOption(index) {
+    currentQuiz.answers[currentQuiz.currentIndex] = index;
+    renderQuestion();
+}
+
+function submitAnswer() {
+    const q = currentQuiz.questions[currentQuiz.currentIndex];
+    let answer = currentQuiz.answers[currentQuiz.currentIndex];
+    
+    // Get numeric answer if applicable
+    if (q.type === 'numeric') {
+        const input = document.getElementById('numericAnswer');
+        if (input) {
+            answer = input.value;
+            currentQuiz.answers[currentQuiz.currentIndex] = answer;
+        }
+    }
+    
+    // Check if answer provided
+    if (answer === undefined || answer === '') {
+        // Highlight the input/options to indicate missing answer
+        const options = document.querySelectorAll('.quiz-option');
+        const input = document.getElementById('numericAnswer');
+        if (input) {
+            input.style.borderColor = 'var(--error)';
+            input.focus();
+        }
+        options.forEach(opt => opt.style.animation = 'shake 0.3s');
+        return;
+    }
+    
+    // Check answer
+    let isCorrect = false;
+    if (q.type === 'multiple') {
+        isCorrect = answer === q.correct;
+    } else if (q.type === 'numeric') {
+        const numAnswer = parseFloat(answer);
+        isCorrect = Math.abs(numAnswer - q.answer) <= (q.tolerance || 0);
+    }
+    
+    if (isCorrect) {
+        currentQuiz.score++;
+    }
+    
+    currentQuiz.submitted[currentQuiz.currentIndex] = true;
+    renderQuestion();
+}
+
+function nextQuestion() {
+    if (currentQuiz.currentIndex < currentQuiz.questions.length - 1) {
+        currentQuiz.currentIndex++;
+        renderQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuiz.currentIndex > 0) {
+        currentQuiz.currentIndex--;
+        renderQuestion();
+    }
+}
+
+function finishQuiz() {
+    const body = document.getElementById('quizBody');
+    const results = document.getElementById('quizResults');
+    const finalScore = document.getElementById('quizFinalScore');
+    const finalMessage = document.getElementById('quizFinalMessage');
+    const review = document.getElementById('quizReview');
+    const progressBar = document.getElementById('quizProgressBar');
+    
+    body.style.display = 'none';
+    document.querySelector('.quiz-footer').style.display = 'none';
+    results.style.display = 'block';
+    progressBar.style.width = '100%';
+    
+    const total = currentQuiz.questions.length;
+    const score = currentQuiz.score;
+    const percentage = (score / total) * 100;
+    
+    finalScore.textContent = `${score}/${total}`;
+    
+    // Set message based on performance
+    if (percentage >= 80) {
+        finalMessage.textContent = '🌟 Excellent work! You\'ve mastered this topic!';
+        document.querySelector('.quiz-results-icon').textContent = '🏆';
+    } else if (percentage >= 60) {
+        finalMessage.textContent = '👍 Good job! Keep practicing to improve.';
+        document.querySelector('.quiz-results-icon').textContent = '✨';
+    } else if (percentage >= 40) {
+        finalMessage.textContent = '📚 Review the chapter and try again!';
+        document.querySelector('.quiz-results-icon').textContent = '📖';
+    } else {
+        finalMessage.textContent = '💪 Don\'t give up! Study the material and retry.';
+        document.querySelector('.quiz-results-icon').textContent = '📝';
+    }
+    
+    // Build review
+    let reviewHtml = '';
+    currentQuiz.questions.forEach((q, i) => {
+        const answer = currentQuiz.answers[i];
+        let isCorrect = false;
+        let yourAnswer = '';
+        let correctAnswer = '';
+        
+        if (q.type === 'multiple') {
+            isCorrect = answer === q.correct;
+            yourAnswer = answer !== undefined ? q.options[answer] : 'No answer';
+            correctAnswer = q.options[q.correct];
+        } else {
+            const numAnswer = parseFloat(answer);
+            isCorrect = Math.abs(numAnswer - q.answer) <= (q.tolerance || 0);
+            yourAnswer = answer !== undefined ? answer : 'No answer';
+            correctAnswer = q.answer;
+        }
+        
+        reviewHtml += `
+            <div class="quiz-review-item ${isCorrect ? 'correct' : 'incorrect'}">
+                <div class="quiz-review-question">Q${i + 1}: ${q.question}</div>
+                <div class="quiz-review-answer">
+                    Your answer: ${yourAnswer}<br>
+                    ${!isCorrect ? `Correct answer: ${correctAnswer}` : '✓ Correct'}
+                </div>
+            </div>
+        `;
+    });
+    
+    review.innerHTML = reviewHtml;
+}
+
+function retakeQuiz() {
+    // Reset and reopen
+    const chapterNum = currentQuiz.chapterKey.replace('chapter', '');
+    document.querySelector('.quiz-footer').style.display = 'flex';
+    openQuiz(chapterNum);
+}
+
+// Add "Take Quiz" button to chapters after content loads
+function addQuizButton(container, chapterNum) {
+    // Only add if quiz exists for this chapter
+    const chapterKey = `chapter${chapterNum}`;
+    if (!window.quizBank || !window.quizBank[chapterKey]) return;
+    
+    // Check if button already exists
+    if (container.querySelector('.take-quiz-btn')) return;
+    
+    const btn = document.createElement('button');
+    btn.className = 'take-quiz-btn';
+    btn.innerHTML = 'Take Chapter Quiz';
+    btn.onclick = () => openQuiz(chapterNum);
+    
+    // Find the end of the chapter content
+    const chapterContent = container.querySelector('.chapter-md-content') || container;
+    chapterContent.appendChild(btn);
+}
+
+// Escape key to close quiz
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const quizModal = document.getElementById('quizModal');
+        if (quizModal && quizModal.classList.contains('active')) {
+            closeQuiz();
+        }
+    }
+});
+
+// Export quiz functions
+window.openQuiz = openQuiz;
+window.closeQuiz = closeQuiz;
+window.selectOption = selectOption;
+window.submitAnswer = submitAnswer;
+window.nextQuestion = nextQuestion;
+window.prevQuestion = prevQuestion;
+window.finishQuiz = finishQuiz;
+window.retakeQuiz = retakeQuiz;
+window.addQuizButton = addQuizButton;

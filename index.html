@@ -89,8 +89,48 @@
         </div>
     </div>
 
+    <!-- Quiz Modal -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2 id="quizTitle">Chapter Quiz</h2>
+                <button class="quiz-close" onclick="closeQuiz()">&times;</button>
+            </div>
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="quizProgressBar"></div>
+            </div>
+            <div class="quiz-question-info">
+                <span id="quizQuestionNum">Question 1 of 5</span>
+                <span id="quizScore">Score: 0</span>
+            </div>
+            <div class="quiz-body" id="quizBody">
+                <!-- Questions inserted here -->
+            </div>
+            <div class="quiz-footer">
+                <button class="quiz-btn quiz-btn-secondary" id="quizPrev" onclick="prevQuestion()" disabled>Previous</button>
+                <button class="quiz-btn quiz-btn-primary" id="quizSubmit" onclick="submitAnswer()">Submit Answer</button>
+                <button class="quiz-btn quiz-btn-primary" id="quizNext" onclick="nextQuestion()" style="display:none;">Next Question</button>
+                <button class="quiz-btn quiz-btn-success" id="quizFinish" onclick="finishQuiz()" style="display:none;">Finish Quiz</button>
+            </div>
+            <div class="quiz-results" id="quizResults" style="display:none;">
+                <div class="quiz-results-score">
+                    <div class="quiz-results-icon">🎯</div>
+                    <h3>Quiz Complete!</h3>
+                    <div class="quiz-final-score" id="quizFinalScore">0/5</div>
+                    <p id="quizFinalMessage">Keep practicing!</p>
+                </div>
+                <div class="quiz-results-review" id="quizReview"></div>
+                <div class="quiz-results-actions">
+                    <button class="quiz-btn quiz-btn-primary" onclick="retakeQuiz()">Retake Quiz</button>
+                    <button class="quiz-btn quiz-btn-secondary" onclick="closeQuiz()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts loaded at end with defer for performance -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    <script src="quiz-data.js" defer></script>
     <script src="script.js" defer></script>
     
     <!-- MathJax loaded last, async with optimized config -->
