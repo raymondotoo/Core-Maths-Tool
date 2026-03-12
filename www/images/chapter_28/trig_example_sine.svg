@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Right triangle for Example 28.1 -->
+  <polygon points="80,220 250,220 80,80" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Right angle mark at B -->
+  <rect x="80" y="200" width="20" height="20" fill="none" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Angle A (35°) -->
+  <path d="M 220,220 A 30 30 0 0 0 238,198" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="205" y="205" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">35°</text>
+  
+  <!-- Vertex labels -->
+  <text x="80" y="70" font-family="Arial" font-size="16" font-weight="bold">A</text>
+  <text x="75" y="240" font-family="Arial" font-size="16" font-weight="bold">B</text>
+  <text x="255" y="235" font-family="Arial" font-size="16" font-weight="bold">C</text>
+  
+  <!-- Side labels -->
+  <text x="165" y="245" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">adjacent</text>
+  <text x="55" y="155" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#ea4335">a = ?</text>
+  <text x="185" y="140" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">c = 10 cm</text>
+  
+  <!-- Formula -->
+  <text x="300" y="80" font-family="Arial" font-size="12" text-anchor="end" fill="#666">sin 35° = a/10</text>
+</svg>

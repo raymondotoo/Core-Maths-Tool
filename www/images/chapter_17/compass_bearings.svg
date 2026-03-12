@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <!-- Compass circles -->
+  <circle cx="150" cy="150" r="110" fill="none" stroke="#ddd" stroke-width="2"/>
+  <circle cx="150" cy="150" r="80" fill="none" stroke="#eee" stroke-width="1"/>
+  <circle cx="150" cy="150" r="6" fill="#333"/>
+  
+  <!-- Cardinal direction lines -->
+  <line x1="150" y1="150" x2="150" y2="35" stroke="#ea4335" stroke-width="3"/>
+  <polygon points="150,35 143,50 157,50" fill="#ea4335"/>
+  
+  <line x1="150" y1="150" x2="150" y2="265" stroke="#333" stroke-width="2"/>
+  <polygon points="150,265 143,250 157,250" fill="#333"/>
+  
+  <line x1="150" y1="150" x2="265" y2="150" stroke="#333" stroke-width="2"/>
+  <polygon points="265,150 250,143 250,157" fill="#333"/>
+  
+  <line x1="150" y1="150" x2="35" y2="150" stroke="#333" stroke-width="2"/>
+  <polygon points="35,150 50,143 50,157" fill="#333"/>
+  
+  <!-- Cardinal labels -->
+  <text x="150" y="25" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#ea4335">N</text>
+  <text x="150" y="290" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">S</text>
+  <text x="280" y="155" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">E</text>
+  <text x="20" y="155" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">W</text>
+  
+  <!-- Bearing values -->
+  <text x="150" y="60" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">000°</text>
+  <text x="215" y="90" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">045°</text>
+  <text x="240" y="155" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">090°</text>
+  <text x="215" y="220" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">135°</text>
+  <text x="150" y="245" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">180°</text>
+  <text x="85" y="220" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">225°</text>
+  <text x="60" y="155" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">270°</text>
+  <text x="85" y="90" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">315°</text>
+  
+  <!-- 45° direction markers -->
+  <line x1="150" y1="150" x2="228" y2="72" stroke="#bbb" stroke-width="1"/>
+  <line x1="150" y1="150" x2="228" y2="228" stroke="#bbb" stroke-width="1"/>
+  <line x1="150" y1="150" x2="72" y2="228" stroke="#bbb" stroke-width="1"/>
+  <line x1="150" y1="150" x2="72" y2="72" stroke="#bbb" stroke-width="1"/>
+</svg>

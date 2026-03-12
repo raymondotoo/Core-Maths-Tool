@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <!-- Triangle -->
+  <polygon points="50,220 350,220 250,70" fill="rgba(234, 67, 53, 0.1)" stroke="#ea4335" stroke-width="2"/>
+  
+  <!-- Vertices labels -->
+  <text x="250" y="55" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">C</text>
+  <text x="35" y="235" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">A</text>
+  <text x="365" y="235" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">B</text>
+  
+  <!-- Side labels -->
+  <text x="130" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#4285f4" font-weight="bold">b</text>
+  <text x="315" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#34a853" font-weight="bold">a</text>
+  <text x="200" y="245" font-family="Arial" font-size="14" text-anchor="middle" fill="#ea4335" font-weight="bold">c</text>
+  
+  <!-- Angle C arc (angle between sides a and b) -->
+  <path d="M 225,85 A 30 30 0 0 1 265,95" fill="none" stroke="#9c27b0" stroke-width="2"/>
+  <text x="245" y="115" font-family="Arial" font-size="14" text-anchor="middle" fill="#9c27b0" font-weight="bold">C</text>
+  
+  <!-- Title -->
+  <text x="200" y="25" font-family="Arial" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">The Cosine Rule</text>
+  
+  <!-- Cosine Rule Formula -->
+  <rect x="70" y="255" width="260" height="25" fill="#f0f0f0" rx="3"/>
+  <text x="200" y="273" font-family="Arial" font-size="13" text-anchor="middle" fill="#333">
+    c² = a² + b² - 2ab cos C
+  </text>
+</svg>

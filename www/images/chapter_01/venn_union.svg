@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <rect x="0" y="0" width="400" height="250" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+  <text x="380" y="20" font-family="serif" font-size="14" font-style="italic">ξ</text>
+  
+  <!-- Set A - filled for union -->
+  <circle cx="140" cy="125" r="80" fill="rgba(156, 39, 176, 0.4)" stroke="#9c27b0" stroke-width="2"/>
+  
+  <!-- Set B - filled for union -->
+  <circle cx="260" cy="125" r="80" fill="rgba(156, 39, 176, 0.4)" stroke="#9c27b0" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <text x="85" y="125" font-family="Arial" font-size="20" font-weight="bold" fill="#4285f4">A</text>
+  <text x="295" y="125" font-family="Arial" font-size="20" font-weight="bold" fill="#ea4335">B</text>
+  
+  <!-- Title -->
+  <text x="200" y="235" font-family="Arial" font-size="16" text-anchor="middle" fill="#333">A ∪ B (Union) - Shaded region</text>
+</svg>

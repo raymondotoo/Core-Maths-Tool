@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <!-- Regular Octagon -->
+  <polygon points="110,30 190,30 240,80 240,160 190,210 110,210 60,160 60,80" 
+           fill="rgba(156, 39, 176, 0.2)" stroke="#9c27b0" stroke-width="2"/>
+  
+  <!-- One interior angle highlighted at top-left -->
+  <path d="M 110,30 L 125,50 A 25 25 0 0 1 85,55 L 60,80" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="95" y="65" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">135°</text>
+  
+  <!-- All vertices marked -->
+  <circle cx="110" cy="30" r="4" fill="#9c27b0"/>
+  <circle cx="190" cy="30" r="4" fill="#9c27b0"/>
+  <circle cx="240" cy="80" r="4" fill="#9c27b0"/>
+  <circle cx="240" cy="160" r="4" fill="#9c27b0"/>
+  <circle cx="190" cy="210" r="4" fill="#9c27b0"/>
+  <circle cx="110" cy="210" r="4" fill="#9c27b0"/>
+  <circle cx="60" cy="160" r="4" fill="#9c27b0"/>
+  <circle cx="60" cy="80" r="4" fill="#9c27b0"/>
+  
+  <!-- Title -->
+  <text x="150" y="250" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">Regular Octagon (n = 8)</text>
+  <text x="150" y="270" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Each interior angle = 135°</text>
+  <text x="150" y="288" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Each exterior angle = 45°</text>
+</svg>

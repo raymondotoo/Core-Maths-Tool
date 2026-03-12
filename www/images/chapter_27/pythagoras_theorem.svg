@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Right triangle -->
+  <polygon points="50,230 250,230 50,80" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Right angle mark -->
+  <rect x="50" y="210" width="20" height="20" fill="none" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Side labels -->
+  <text x="150" y="255" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">a</text>
+  <text x="30" y="160" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">b</text>
+  <text x="165" y="145" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#ea4335">c (hypotenuse)</text>
+  
+  <!-- Squares on sides -->
+  <rect x="50" y="230" width="60" height="60" fill="rgba(52, 168, 83, 0.2)" stroke="#34a853" stroke-width="1" transform="rotate(0)"/>
+  <text x="80" y="265" font-family="Arial" font-size="12" text-anchor="middle" fill="#34a853">a²</text>
+  
+  <!-- Formula -->
+  <text x="280" y="100" font-family="Arial" font-size="20" font-weight="bold" fill="#333">a² + b² = c²</text>
+  <text x="280" y="130" font-family="Arial" font-size="14" fill="#666">Pythagoras' Theorem</text>
+</svg>

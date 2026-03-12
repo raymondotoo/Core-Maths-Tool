@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <rect x="0" y="0" width="400" height="250" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+  <text x="380" y="20" font-family="serif" font-size="14" font-style="italic">ξ</text>
+  
+  <!-- Set A -->
+  <circle cx="140" cy="125" r="80" fill="rgba(66, 133, 244, 0.3)" stroke="#4285f4" stroke-width="2"/>
+  <text x="85" y="125" font-family="Arial" font-size="20" font-weight="bold" fill="#4285f4">A</text>
+  
+  <!-- Set B -->
+  <circle cx="260" cy="125" r="80" fill="rgba(234, 67, 53, 0.3)" stroke="#ea4335" stroke-width="2"/>
+  <text x="295" y="125" font-family="Arial" font-size="20" font-weight="bold" fill="#ea4335">B</text>
+  
+  <!-- Intersection label -->
+  <text x="200" y="130" font-family="Arial" font-size="14" text-anchor="middle" fill="#333">A ∩ B</text>
+</svg>

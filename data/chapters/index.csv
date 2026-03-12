@@ -1,0 +1,40 @@
+id,title,book_start,book_end,md_file
+1,Sets,1,24,chapter_01_sets.md
+2,Logical Reasoning,25,32,chapter_02_logical_reasoning.md
+3,Modulo Arithmetic,33,41,chapter_03_modulo_arithmetic.md
+4,Binary Operations,42,47,chapter_04_binary_operations.md
+5,Numeration Systems (Number Bases),48,57,chapter_05_numeration_systems.md
+6,"Algebraic Expressions (Simplification, Multiplication of Two Binomials, Factorization)",58,70,chapter_06_algebraic_expressions.md
+7,Linear Equations,71,79,chapter_07_linear_equations.md
+8,Linear Inequalities,80,92,chapter_08_linear_inequalities.md
+9,Simultaneous Equations in Two Variables,93,102,chapter_09_simultaneous_equations.md
+10,Substitution into Formulae and Change of Subject,103,113,chapter_10_substitution_change_subject.md
+11,Variations,114,124,chapter_11_variations.md
+12,Polygons,125,132,chapter_12_polygons.md
+13,Pie Charts,133,143,chapter_13_pie_charts.md
+14,Surds,144,151,chapter_14_surds.md
+15,Indices,152,158,chapter_15_indices.md
+16,Logarithms,159,166,chapter_16_logarithms.md
+17,Vectors and Bearings,167,196,chapter_17_vectors_bearings.md
+18,Coordinate Geometry,197,203,chapter_18_coordinate_geometry.md
+19,Transformations and Coordinates,204,231,chapter_19_transformations_coordinates.md
+20,Graphs of Relations,231,254,chapter_20_graphs_relations.md
+21,Quadratic Equations,255,258,chapter_21_quadratic_equations.md
+22,Probability,259,266,chapter_22_probability.md
+23,Statistics,267,294,chapter_23_statistics.md
+24,Business Mathematics,295,325,chapter_24_business_mathematics.md
+25,Construction of Plane Figures and Loci,326,343,chapter_25_construction_loci.md
+26,Plane Geometry,344,357,chapter_26_plane_geometry.md
+27,Pythagoras' Theorem,358,359,chapter_27_pythagoras.md
+28,Trigonometry and Application to Bearings,360,375,chapter_28_trigonometry_bearings.md
+29,Areas and Perimeters of Plane Figures,376,388,chapter_29_areas_perimeters.md
+30,Circles and Tangents,389,406,chapter_30_circles_tangents.md
+31,"Enlargement, Reduction and Similarity",407,411,chapter_31_enlargement_reduction_similarity.md
+32,Mensuration,412,440,chapter_32_mensuration.md
+33,"Significant Figures, Decimal Places, Standard Forms and Percentage Error",441,443,chapter_33_significant_figures.md
+34,Relations and Mappings,444,448,chapter_34_relations_mappings.md
+35,"Average Speed, Changing Units and Scale",449,450,chapter_35_average_speed_units_scale.md
+36,Fractions,451,454,chapter_36_fractions.md
+37,Global Mathematics,455,462,chapter_37_global_mathematics.md
+38,Sequences of Numbers,463,465,chapter_38_sequences.md
+39,Objective Test,466,516,chapter_39_objective_test.md

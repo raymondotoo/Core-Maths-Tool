@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220">
+  <!-- Smaller triangle ABC -->
+  <polygon points="40,180 130,180 85,100" fill="rgba(66, 133, 244, 0.15)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Labels for small triangle -->
+  <text x="85" y="90" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">A</text>
+  <text x="30" y="195" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">B</text>
+  <text x="140" y="195" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">C</text>
+  
+  <!-- Side labels small triangle -->
+  <text x="55" y="130" font-family="Arial" font-size="11" fill="#4285f4" font-weight="bold">6 cm</text>
+  <text x="85" y="198" font-family="Arial" font-size="11" fill="#4285f4" font-weight="bold">8 cm</text>
+  
+  <!-- Larger triangle PQR (similar) -->
+  <polygon points="180,180 315,180 247,55" fill="rgba(52, 168, 83, 0.15)" stroke="#34a853" stroke-width="2"/>
+  
+  <!-- Labels for large triangle -->
+  <text x="247" y="45" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">P</text>
+  <text x="165" y="195" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">Q</text>
+  <text x="330" y="195" font-family="Arial" font-size="12" text-anchor="middle" font-weight="bold" fill="#333">R</text>
+  
+  <!-- Side labels large triangle -->
+  <text x="200" y="110" font-family="Arial" font-size="11" fill="#34a853" font-weight="bold">9 cm</text>
+  <text x="247" y="198" font-family="Arial" font-size="11" fill="#ea4335" font-weight="bold">QR = ?</text>
+  
+  <!-- Similarity indicator -->
+  <text x="155" y="130" font-family="Arial" font-size="20" fill="#666">~</text>
+  
+  <!-- Formula box -->
+  <rect x="60" y="205" width="265" height="15" fill="rgba(255,255,255,0.95)" rx="2"/>
+  <text x="192" y="216" font-family="Arial" font-size="11" text-anchor="middle" fill="#333">AB/PQ = BC/QR → 6/9 = 8/QR → QR = 12 cm</text>
+</svg>

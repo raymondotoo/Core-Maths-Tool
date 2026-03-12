@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Grid -->
+  <defs>
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#f0f0f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="350" height="280" fill="url(#grid)"/>
+  
+  <!-- Axes -->
+  <line x1="40" y1="220" x2="320" y2="220" stroke="#333" stroke-width="1.5"/>
+  <line x1="40" y1="220" x2="40" y2="30" stroke="#333" stroke-width="1.5"/>
+  
+  <!-- Arrows -->
+  <polygon points="320,220 310,215 310,225" fill="#333"/>
+  <polygon points="40,30 35,40 45,40" fill="#333"/>
+  
+  <!-- Labels -->
+  <text x="325" y="225" font-family="Arial" font-size="11" fill="#333">x</text>
+  <text x="35" y="25" font-family="Arial" font-size="11" fill="#333">y</text>
+  
+  <!-- Scale markers -->
+  <text x="65" y="235" font-family="Arial" font-size="9" fill="#666">1</text>
+  <text x="90" y="235" font-family="Arial" font-size="9" fill="#666">2</text>
+  <text x="115" y="235" font-family="Arial" font-size="9" fill="#666">3</text>
+  <text x="140" y="235" font-family="Arial" font-size="9" fill="#666">4</text>
+  <text x="165" y="235" font-family="Arial" font-size="9" fill="#666">5</text>
+  <text x="190" y="235" font-family="Arial" font-size="9" fill="#666">6</text>
+  
+  <!-- Center point O (origin) -->
+  <circle cx="40" cy="220" r="4" fill="#333"/>
+  <text x="30" y="235" font-family="Arial" font-size="10" fill="#333">O</text>
+  
+  <!-- Original point P(3, 2) at (115, 170) -->
+  <circle cx="115" cy="170" r="5" fill="#4285f4"/>
+  <text x="75" y="165" font-family="Arial" font-size="12" fill="#4285f4" font-weight="bold">P(3, 2)</text>
+  
+  <!-- Line from O to P (and beyond to P') -->
+  <line x1="40" y1="220" x2="190" y2="120" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  
+  <!-- Extended line continues -->
+  <line x1="190" y1="120" x2="280" y2="50" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  
+  <!-- Image point P'(6, 4) at (190, 120) for scale factor 2 -->
+  <circle cx="190" cy="120" r="6" fill="#34a853"/>
+  <text x="200" y="115" font-family="Arial" font-size="12" fill="#34a853" font-weight="bold">P'(6, 4)</text>
+  
+  <!-- Scale factor indication -->
+  <text x="60" y="190" font-family="Arial" font-size="10" fill="#666">1 unit</text>
+  <text x="135" y="140" font-family="Arial" font-size="10" fill="#666">1 unit</text>
+  
+  <!-- Legend -->
+  <rect x="200" y="160" width="140" height="65" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="270" y="180" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Enlargement k = 2</text>
+  <text x="210" y="200" font-family="Arial" font-size="10" fill="#333">(x, y) → (kx, ky)</text>
+  <text x="210" y="218" font-family="Arial" font-size="10" fill="#333">(3, 2) → (6, 4)</text>
+  
+  <!-- Title -->
+  <text x="175" y="265" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Enlargement with Scale Factor 2 from Origin</text>
+</svg>

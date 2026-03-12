@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <!-- Rectangle -->
+  <rect x="50" y="50" width="200" height="100" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Diagonal -->
+  <line x1="50" y1="150" x2="250" y2="50" stroke="#ea4335" stroke-width="2" stroke-dasharray="8,4"/>
+  
+  <!-- Right angle marks -->
+  <rect x="50" y="135" width="15" height="15" fill="none" stroke="#4285f4" stroke-width="1.5"/>
+  <rect x="235" y="50" width="15" height="15" fill="none" stroke="#4285f4" stroke-width="1.5"/>
+  
+  <!-- Dimension labels -->
+  <text x="150" y="170" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">15 cm</text>
+  <text x="35" y="105" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">8 cm</text>
+  <text x="165" y="90" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#ea4335">d = ?</text>
+  
+  <!-- Formula -->
+  <text x="170" y="195" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">d² = 8² + 15²</text>
+</svg>

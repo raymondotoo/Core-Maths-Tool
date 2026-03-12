@@ -1,0 +1,29 @@
+{
+  "name": "core-maths-tool",
+  "version": "1.0.0",
+  "description": "Application for core maths (BECE syllabus)",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && mkdir dist && cp index.html script.js styles.css dist/ && cp -r www dist/ && cp -r data dist/",
+    "ios:sync": "npm run build && npx cap sync ios",
+    "ios:open": "npx cap open ios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymondotoo/Core-Maths-Tool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/raymondotoo/Core-Maths-Tool/issues"
+  },
+  "homepage": "https://github.com/raymondotoo/Core-Maths-Tool#readme",
+  "dependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/ios": "^8.2.0"
+  }
+}

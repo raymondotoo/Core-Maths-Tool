@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <!-- Triangle -->
+  <polygon points="50,230 350,230 200,60" fill="rgba(66, 133, 244, 0.1)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Vertices labels -->
+  <text x="200" y="45" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">A</text>
+  <text x="35" y="245" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">B</text>
+  <text x="365" y="245" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">C</text>
+  
+  <!-- Side labels -->
+  <text x="105" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#ea4335" font-weight="bold">c</text>
+  <text x="295" y="140" font-family="Arial" font-size="14" text-anchor="middle" fill="#34a853" font-weight="bold">b</text>
+  <text x="200" y="255" font-family="Arial" font-size="14" text-anchor="middle" fill="#4285f4" font-weight="bold">a</text>
+  
+  <!-- Angle A arc -->
+  <path d="M 183,80 A 25 25 0 0 1 217,80" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="200" y="100" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">A</text>
+  
+  <!-- Angle B arc -->
+  <path d="M 70,220 A 25 25 0 0 0 80,230" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="85" y="215" font-family="Arial" font-size="12" text-anchor="start" fill="#333">B</text>
+  
+  <!-- Angle C arc -->
+  <path d="M 320,230 A 25 25 0 0 0 330,220" fill="none" stroke="#333" stroke-width="1.5"/>
+  <text x="315" y="215" font-family="Arial" font-size="12" text-anchor="end" fill="#333">C</text>
+  
+  <!-- Title -->
+  <text x="200" y="25" font-family="Arial" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">The Sine Rule</text>
+  
+  <!-- Sine Rule Formula -->
+  <rect x="80" y="262" width="240" height="25" fill="#f0f0f0" rx="3"/>
+  <text x="200" y="280" font-family="Arial" font-size="13" text-anchor="middle" fill="#333">
+    <tspan font-style="italic">a</tspan>/sin A = <tspan font-style="italic">b</tspan>/sin B = <tspan font-style="italic">c</tspan>/sin C
+  </text>
+</svg>

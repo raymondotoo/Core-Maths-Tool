@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Ground -->
+  <line x1="40" y1="250" x2="380" y2="250" stroke="#8d6e63" stroke-width="3"/>
+  
+  <!-- Tower -->
+  <rect x="300" y="80" width="30" height="170" fill="#78909c" stroke="#546e7a" stroke-width="2"/>
+  <rect x="305" y="85" width="20" height="8" fill="#90a4ae"/>
+  
+  <!-- Observer point -->
+  <circle cx="80" cy="250" r="5" fill="#ea4335"/>
+  <text x="80" y="270" font-family="Arial" font-size="12" text-anchor="middle">Observer</text>
+  
+  <!-- Line of sight -->
+  <line x1="80" y1="250" x2="315" y2="80" stroke="#4285f4" stroke-width="2" stroke-dasharray="6,3"/>
+  
+  <!-- Horizontal line from observer -->
+  <line x1="80" y1="250" x2="300" y2="250" stroke="#666" stroke-width="1"/>
+  
+  <!-- Angle of elevation arc -->
+  <path d="M 130,250 A 50 50 0 0 0 118,220" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="145" y="235" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">55°</text>
+  
+  <!-- Labels -->
+  <text x="190" y="268" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">30 m</text>
+  <text x="345" y="170" font-family="Arial" font-size="16" font-weight="bold" fill="#ea4335">h = ?</text>
+  
+  <!-- Height arrow -->
+  <line x1="350" y1="80" x2="350" y2="250" stroke="#ea4335" stroke-width="1"/>
+  <polygon points="350,80 346,90 354,90" fill="#ea4335"/>
+  <polygon points="350,250 346,240 354,240" fill="#ea4335"/>
+  
+  <!-- Title -->
+  <text x="200" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">Angle of Elevation</text>
+  <text x="200" y="290" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">tan 55° = h / 30</text>
+</svg>

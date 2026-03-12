@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 230">
+  <!-- Trapezium PQRS with PQ || SR -->
+  <polygon points="80,50 270,50 300,170 40,170" 
+           fill="rgba(156, 39, 176, 0.2)" stroke="#9c27b0" stroke-width="2"/>
+  
+  <!-- Parallel marks on PQ and SR -->
+  <line x1="170" y1="45" x2="180" y2="55" stroke="#9c27b0" stroke-width="2"/>
+  <line x1="165" y1="165" x2="175" y2="175" stroke="#9c27b0" stroke-width="2"/>
+  
+  <!-- Angle P (65°) -->
+  <path d="M 80,50 L 105,50 A 25 25 0 0 1 88,72" fill="rgba(66,133,244,0.3)" stroke="#4285f4" stroke-width="2"/>
+  <text x="100" y="80" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">65°</text>
+  
+  <!-- Angle Q (75°) -->
+  <path d="M 270,50 L 245,50 A 25 25 0 0 0 260,72" fill="rgba(52,168,83,0.3)" stroke="#34a853" stroke-width="2"/>
+  <text x="230" y="80" font-family="Arial" font-size="14" fill="#34a853" font-weight="bold">75°</text>
+  
+  <!-- Angle R (105°) -->
+  <path d="M 300,170 L 275,170 A 25 25 0 0 0 290,148" fill="rgba(234,67,53,0.3)" stroke="#ea4335" stroke-width="2"/>
+  <text x="250" y="155" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">105°</text>
+  
+  <!-- Angle S (115°) -->
+  <path d="M 40,170 L 65,170 A 25 25 0 0 1 50,148" fill="rgba(251,188,5,0.3)" stroke="#fbbc05" stroke-width="2"/>
+  <text x="70" y="155" font-family="Arial" font-size="14" fill="#fbbc05" font-weight="bold">115°</text>
+  
+  <!-- Vertex labels -->
+  <text x="75" y="40" font-family="Arial" font-size="16" font-weight="bold">P</text>
+  <text x="275" y="40" font-family="Arial" font-size="16" font-weight="bold">Q</text>
+  <text x="305" y="180" font-family="Arial" font-size="16" font-weight="bold">R</text>
+  <text x="25" y="180" font-family="Arial" font-size="16" font-weight="bold">S</text>
+  
+  <!-- Info -->
+  <text x="170" y="200" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Trapezium: PQ ∥ SR</text>
+  <text x="170" y="218" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">Co-interior angles: P + S = 180°, Q + R = 180°</text>
+</svg>

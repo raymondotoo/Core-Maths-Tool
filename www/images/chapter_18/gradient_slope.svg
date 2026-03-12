@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#eee" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="350" height="280" fill="url(#grid)"/>
+  
+  <!-- Axes -->
+  <line x1="50" y1="220" x2="310" y2="220" stroke="#333" stroke-width="2"/>
+  <line x1="50" y1="220" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+  
+  <!-- Arrows -->
+  <polygon points="310,220 300,215 300,225" fill="#333"/>
+  <polygon points="50,30 45,40 55,40" fill="#333"/>
+  
+  <!-- Labels -->
+  <text x="315" y="225" font-family="Arial" font-size="12" fill="#333">x</text>
+  <text x="45" y="25" font-family="Arial" font-size="12" fill="#333">y</text>
+  
+  <!-- Grid marks -->
+  <text x="90" y="235" font-family="Arial" font-size="10" fill="#666">1</text>
+  <text x="130" y="235" font-family="Arial" font-size="10" fill="#666">2</text>
+  <text x="170" y="235" font-family="Arial" font-size="10" fill="#666">3</text>
+  <text x="210" y="235" font-family="Arial" font-size="10" fill="#666">4</text>
+  <text x="250" y="235" font-family="Arial" font-size="10" fill="#666">5</text>
+  
+  <text x="38" y="184" font-family="Arial" font-size="10" fill="#666">1</text>
+  <text x="38" y="144" font-family="Arial" font-size="10" fill="#666">2</text>
+  <text x="38" y="104" font-family="Arial" font-size="10" fill="#666">3</text>
+  <text x="38" y="64" font-family="Arial" font-size="10" fill="#666">4</text>
+  
+  <!-- Line through A(1, 2) and B(4, 8) scaled: A at (90, 140), B at (210, 60) approximately -->
+  <!-- Actually: A(1,2) → (50+40, 220-80) = (90, 140), B(4,8) → can't fit 8, let's use A(1,1), B(3,3) -->
+  
+  <!-- Line through A(1,1) and B(4,3): gradient = (3-1)/(4-1) = 2/3 -->
+  <!-- But example uses gradient 2, so A(1,2) and B(3,6)? Or B(4,8)? Let's scale y differently -->
+  
+  <!-- Using A(1, 2) -> (90, 140) and B(4, 8) scaled to (210, 80) for visual -->
+  <line x1="70" y1="180" x2="250" y2="60" stroke="#4285f4" stroke-width="3"/>
+  
+  <!-- Point A(1, 2) -->
+  <circle cx="90" cy="140" r="5" fill="#333"/>
+  <text x="60" y="135" font-family="Arial" font-size="12" fill="#333" font-weight="bold">A(1, 2)</text>
+  
+  <!-- Point B(4, 8) -->
+  <circle cx="210" cy="60" r="5" fill="#333"/>
+  <text x="220" y="55" font-family="Arial" font-size="12" fill="#333" font-weight="bold">B(4, 8)</text>
+  
+  <!-- Rise and Run -->
+  <line x1="90" y1="140" x2="210" y2="140" stroke="#34a853" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="210" y1="140" x2="210" y2="60" stroke="#ea4335" stroke-width="2" stroke-dasharray="5,3"/>
+  
+  <!-- Labels for rise and run -->
+  <text x="150" y="158" font-family="Arial" font-size="12" fill="#34a853" font-weight="bold">run = 3</text>
+  <text x="225" y="105" font-family="Arial" font-size="12" fill="#ea4335" font-weight="bold">rise = 6</text>
+  
+  <!-- Right angle -->
+  <polyline points="195,140 195,125 210,125" fill="none" stroke="#666" stroke-width="1"/>
+  
+  <!-- Formula -->
+  <rect x="230" y="160" width="110" height="55" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="285" y="180" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Gradient (m)</text>
+  <text x="285" y="198" font-family="Arial" font-size="11" text-anchor="middle" fill="#333">= rise / run</text>
+  <text x="285" y="212" font-family="Arial" font-size="11" text-anchor="middle" fill="#4285f4">= 6/3 = 2</text>
+  
+  <!-- Title -->
+  <text x="175" y="265" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Gradient = (y₂ - y₁) / (x₂ - x₁)</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 240">
+  <!-- Center of enlargement -->
+  <circle cx="40" cy="200" r="4" fill="#333"/>
+  <text x="30" y="218" font-family="Arial" font-size="12" fill="#333" font-weight="bold">O</text>
+  
+  <!-- Original triangle ABC -->
+  <polygon points="80,170 120,170 100,130" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  <text x="75" y="185" font-family="Arial" font-size="10" fill="#4285f4" font-weight="bold">A</text>
+  <text x="120" y="185" font-family="Arial" font-size="10" fill="#4285f4" font-weight="bold">B</text>
+  <text x="98" y="123" font-family="Arial" font-size="10" fill="#4285f4" font-weight="bold">C</text>
+  
+  <!-- Image triangle A'B'C' (scale factor 2) -->
+  <polygon points="120,140 200,140 160,60" fill="rgba(234, 67, 53, 0.2)" stroke="#ea4335" stroke-width="2"/>
+  <text x="108" y="145" font-family="Arial" font-size="10" fill="#ea4335" font-weight="bold">A'</text>
+  <text x="202" y="145" font-family="Arial" font-size="10" fill="#ea4335" font-weight="bold">B'</text>
+  <text x="158" y="53" font-family="Arial" font-size="10" fill="#ea4335" font-weight="bold">C'</text>
+  
+  <!-- Rays from center -->
+  <line x1="40" y1="200" x2="200" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="40" y1="200" x2="120" y2="140" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="40" y1="200" x2="160" y2="60" stroke="#999" stroke-width="1" stroke-dasharray="4,2"/>
+  
+  <!-- Legend -->
+  <rect x="240" y="40" width="130" height="110" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="305" y="60" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Enlargement</text>
+  <text x="250" y="80" font-family="Arial" font-size="10" fill="#333">Center: O(0, 0)</text>
+  <text x="250" y="95" font-family="Arial" font-size="10" fill="#333">Scale factor: k = 2</text>
+  <line x1="250" y1="105" x2="360" y2="105" stroke="#ddd"/>
+  <text x="250" y="120" font-family="Arial" font-size="10" fill="#4285f4">Original △ABC</text>
+  <text x="250" y="135" font-family="Arial" font-size="10" fill="#ea4335">Image △A'B'C'</text>
+  <text x="250" y="148" font-family="Arial" font-size="9" fill="#666">(each side × 2)</text>
+  
+  <!-- Title -->
+  <text x="175" y="225" font-family="Arial" font-size="13" text-anchor="middle" fill="#333" font-weight="bold">Center of Enlargement with Scale Factor 2</text>
+</svg>

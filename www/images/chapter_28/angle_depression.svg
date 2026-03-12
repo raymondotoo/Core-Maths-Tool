@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Water -->
+  <rect x="40" y="250" width="340" height="30" fill="rgba(66, 133, 244, 0.3)"/>
+  
+  <!-- Cliff -->
+  <polygon points="40,250 40,80 80,80 80,250" fill="#8d6e63" stroke="#5d4037" stroke-width="2"/>
+  
+  <!-- Observer at top -->
+  <circle cx="60" cy="80" r="5" fill="#ea4335"/>
+  <text x="60" y="65" font-family="Arial" font-size="12" text-anchor="middle">Observer</text>
+  
+  <!-- Boat -->
+  <ellipse cx="320" cy="250" rx="25" ry="8" fill="#795548"/>
+  <line x1="320" y1="250" x2="320" y2="230" stroke="#795548" stroke-width="2"/>
+  <polygon points="310,230 320,215 330,230" fill="#fff"/>
+  
+  <!-- Horizontal line from observer -->
+  <line x1="60" y1="80" x2="350" y2="80" stroke="#666" stroke-width="1" stroke-dasharray="4,2"/>
+  
+  <!-- Line of sight to boat -->
+  <line x1="60" y1="80" x2="320" y2="250" stroke="#4285f4" stroke-width="2" stroke-dasharray="6,3"/>
+  
+  <!-- Angle of depression arc -->
+  <path d="M 110,80 A 50 50 0 0 1 100,110" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="115" y="105" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">25°</text>
+  
+  <!-- Height label -->
+  <text x="25" y="170" font-family="Arial" font-size="14" font-weight="bold" fill="#333">40 m</text>
+  <line x1="35" y1="80" x2="35" y2="250" stroke="#333" stroke-width="1"/>
+  <polygon points="35,80 31,90 39,90" fill="#333"/>
+  <polygon points="35,250 31,240 39,240" fill="#333"/>
+  
+  <!-- Distance label -->
+  <text x="190" y="268" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#ea4335">d = ?</text>
+  
+  <!-- Title -->
+  <text x="200" y="30" font-family="Arial" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">Angle of Depression</text>
+  <text x="200" y="295" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">tan 25° = 40 / d</text>
+</svg>

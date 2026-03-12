@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Parallel lines -->
+  <line x1="30" y1="80" x2="320" y2="80" stroke="#333" stroke-width="2"/>
+  <line x1="30" y1="180" x2="320" y2="180" stroke="#333" stroke-width="2"/>
+  
+  <!-- Parallel markers -->
+  <line x1="155" y1="75" x2="165" y2="85" stroke="#333" stroke-width="1.5"/>
+  <line x1="165" y1="75" x2="175" y2="85" stroke="#333" stroke-width="1.5"/>
+  <line x1="155" y1="175" x2="165" y2="185" stroke="#333" stroke-width="1.5"/>
+  <line x1="165" y1="175" x2="175" y2="185" stroke="#333" stroke-width="1.5"/>
+  
+  <!-- Labels for parallel lines -->
+  <text x="20" y="85" font-family="Arial" font-size="12" fill="#333">l</text>
+  <text x="20" y="185" font-family="Arial" font-size="12" fill="#333">m</text>
+  
+  <!-- Transversal -->
+  <line x1="100" y1="30" x2="250" y2="230" stroke="#4285f4" stroke-width="2"/>
+  <text x="95" y="25" font-family="Arial" font-size="12" fill="#4285f4">t</text>
+  
+  <!-- Angles at line l -->
+  <!-- angle = ~65° -->
+  <path d="M 165,80 A 30 30 0 0 0 145,55" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="158" y="55" font-family="Arial" font-size="12" fill="#ea4335" font-weight="bold">65°</text>
+  
+  <path d="M 130,80 A 30 30 0 0 1 155,105" fill="none" stroke="#34a853" stroke-width="2"/>
+  <text x="115" y="105" font-family="Arial" font-size="12" fill="#34a853" font-weight="bold">115°</text>
+  
+  <!-- Angles at line m (corresponding, alternate, etc.) -->
+  <path d="M 230,180 A 30 30 0 0 0 210,155" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="223" y="155" font-family="Arial" font-size="12" fill="#ea4335" font-weight="bold">65°</text>
+  <text x="255" y="155" font-family="Arial" font-size="10" fill="#ea4335">(corresponding)</text>
+  
+  <path d="M 195,180 A 30 30 0 0 1 220,205" fill="none" stroke="#34a853" stroke-width="2"/>
+  <text x="180" y="205" font-family="Arial" font-size="12" fill="#34a853" font-weight="bold">115°</text>
+  <text x="230" y="215" font-family="Arial" font-size="10" fill="#34a853">(co-interior)</text>
+  
+  <!-- Legend box -->
+  <rect x="20" y="235" width="310" height="40" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="30" y="255" font-family="Arial" font-size="10" fill="#333">Corresponding = equal | Alternate = equal | Co-interior = 180°</text>
+  <text x="30" y="268" font-family="Arial" font-size="10" fill="#666">65° + 115° = 180° (supplementary)</text>
+</svg>

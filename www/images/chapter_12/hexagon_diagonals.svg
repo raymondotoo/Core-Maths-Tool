@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 280">
+  <!-- Regular Hexagon -->
+  <polygon points="150,30 240,70 240,170 150,210 60,170 60,70" 
+           fill="rgba(66, 133, 244, 0.15)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- All 9 diagonals -->
+  <!-- From vertex A (top) -->
+  <line x1="150" y1="30" x2="240" y2="170" stroke="#ea4335" stroke-width="1.5"/>
+  <line x1="150" y1="30" x2="60" y2="170" stroke="#ea4335" stroke-width="1.5"/>
+  <line x1="150" y1="30" x2="150" y2="210" stroke="#ea4335" stroke-width="1.5"/>
+  
+  <!-- From vertex B (top-right) -->
+  <line x1="240" y1="70" x2="60" y2="170" stroke="#34a853" stroke-width="1.5"/>
+  <line x1="240" y1="70" x2="150" y2="210" stroke="#34a853" stroke-width="1.5"/>
+  <line x1="240" y1="70" x2="60" y2="70" stroke="#34a853" stroke-width="1.5"/>
+  
+  <!-- From vertex C (bottom-right) -->
+  <line x1="240" y1="170" x2="60" y2="70" stroke="#fbbc05" stroke-width="1.5"/>
+  
+  <!-- From vertex F (top-left) -->
+  <line x1="60" y1="70" x2="150" y2="210" stroke="#9c27b0" stroke-width="1.5"/>
+  <line x1="60" y1="70" x2="240" y2="170" stroke="#9c27b0" stroke-width="1.5"/>
+  
+  <!-- Vertex dots and labels -->
+  <circle cx="150" cy="30" r="5" fill="#4285f4"/>
+  <circle cx="240" cy="70" r="5" fill="#4285f4"/>
+  <circle cx="240" cy="170" r="5" fill="#4285f4"/>
+  <circle cx="150" cy="210" r="5" fill="#4285f4"/>
+  <circle cx="60" cy="170" r="5" fill="#4285f4"/>
+  <circle cx="60" cy="70" r="5" fill="#4285f4"/>
+  
+  <text x="150" y="18" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">A</text>
+  <text x="255" y="75" font-family="Arial" font-size="14" font-weight="bold">B</text>
+  <text x="255" y="178" font-family="Arial" font-size="14" font-weight="bold">C</text>
+  <text x="150" y="230" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle">D</text>
+  <text x="42" y="178" font-family="Arial" font-size="14" font-weight="bold">E</text>
+  <text x="42" y="75" font-family="Arial" font-size="14" font-weight="bold">F</text>
+  
+  <!-- Formula info -->
+  <text x="150" y="255" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Hexagon (n = 6)</text>
+  <text x="150" y="272" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Diagonals = n(n-3)/2 = 6(3)/2 = 9</text>
+</svg>

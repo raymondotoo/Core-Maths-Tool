@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 260">
+  <!-- Isosceles Triangle -->
+  <polygon points="150,30 250,200 50,200" 
+           fill="rgba(52, 168, 83, 0.2)" stroke="#34a853" stroke-width="2"/>
+  
+  <!-- Equal side marks -->
+  <line x1="95" y1="105" x2="105" y2="115" stroke="#34a853" stroke-width="2"/>
+  <line x1="100" y1="100" x2="110" y2="110" stroke="#34a853" stroke-width="2"/>
+  <line x1="195" y1="105" x2="205" y2="115" stroke="#34a853" stroke-width="2"/>
+  <line x1="190" y1="110" x2="200" y2="120" stroke="#34a853" stroke-width="2"/>
+  
+  <!-- Vertex angle arc (40°) -->
+  <path d="M 150,30 L 135,55 A 28 28 0 0 1 165,55 L 150,30" fill="rgba(234,67,53,0.3)" stroke="#ea4335" stroke-width="2"/>
+  <text x="150" y="70" font-family="Arial" font-size="14" fill="#ea4335" text-anchor="middle" font-weight="bold">40°</text>
+  
+  <!-- Base angles (70° each) -->
+  <path d="M 50,200 L 75,200 A 25 25 0 0 0 65,178" fill="rgba(66,133,244,0.3)" stroke="#4285f4" stroke-width="2"/>
+  <text x="85" y="188" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">70°</text>
+  
+  <path d="M 250,200 L 225,200 A 25 25 0 0 1 235,178" fill="rgba(66,133,244,0.3)" stroke="#4285f4" stroke-width="2"/>
+  <text x="205" y="188" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">70°</text>
+  
+  <!-- Vertex labels -->
+  <text x="150" y="20" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle">A</text>
+  <text x="35" y="210" font-family="Arial" font-size="16" font-weight="bold">B</text>
+  <text x="260" y="210" font-family="Arial" font-size="16" font-weight="bold">C</text>
+  
+  <!-- Info -->
+  <text x="150" y="235" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">Isosceles Triangle: AB = AC</text>
+  <text x="150" y="252" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">40° + 70° + 70° = 180°</text>
+</svg>

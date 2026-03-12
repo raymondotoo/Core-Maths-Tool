@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
+  <!-- Right triangle with legs 6 and 8, hypotenuse unknown -->
+  <polygon points="50,200 230,200 50,50" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Right angle mark -->
+  <rect x="50" y="180" width="20" height="20" fill="none" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Side labels -->
+  <text x="140" y="220" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">8 cm</text>
+  <text x="30" y="130" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">6 cm</text>
+  <text x="155" y="115" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold" fill="#ea4335">c = ?</text>
+  
+  <!-- Formula hint -->
+  <text x="150" y="245" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">c² = 6² + 8²</text>
+</svg>

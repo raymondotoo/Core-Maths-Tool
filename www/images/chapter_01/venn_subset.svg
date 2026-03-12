@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <rect x="0" y="0" width="400" height="250" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+  <text x="380" y="20" font-family="serif" font-size="14" font-style="italic">ξ</text>
+  
+  <!-- Set A (larger) -->
+  <circle cx="200" cy="125" r="90" fill="rgba(66, 133, 244, 0.3)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Set B (smaller, inside A) -->
+  <circle cx="200" cy="140" r="50" fill="rgba(234, 67, 53, 0.4)" stroke="#ea4335" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <text x="200" y="55" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#4285f4">A</text>
+  <text x="200" y="145" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#ea4335">B</text>
+  
+  <!-- Title -->
+  <text x="200" y="235" font-family="Arial" font-size="16" text-anchor="middle" fill="#333">B ⊂ A (B is a subset of A)</text>
+</svg>

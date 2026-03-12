@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280">
+  <!-- Grid background -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#f0f0f0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="280" fill="url(#grid)"/>
+  
+  <!-- Origin point -->
+  <circle cx="60" cy="200" r="4" fill="#333"/>
+  <text x="50" y="220" font-family="Arial" font-size="12" fill="#333">O</text>
+  
+  <!-- Vector a = (2, 3) scaled by 30 -->
+  <line x1="60" y1="200" x2="120" y2="110" stroke="#4285f4" stroke-width="3"/>
+  <polygon points="120,110 108,120 115,125" fill="#4285f4"/>
+  <text x="75" y="145" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">a</text>
+  
+  <!-- Vector b = (4, -1) scaled by 30, starting from end of a -->
+  <line x1="120" y1="110" x2="240" y2="140" stroke="#ea4335" stroke-width="3"/>
+  <polygon points="240,140 226,132 226,145" fill="#ea4335"/>
+  <text x="180" y="115" font-family="Arial" font-size="14" fill="#ea4335" font-weight="bold">b</text>
+  
+  <!-- Resultant a + b = (6, 2) -->
+  <line x1="60" y1="200" x2="240" y2="140" stroke="#34a853" stroke-width="3"/>
+  <polygon points="240,140 224,148 228,138" fill="#34a853"/>
+  <text x="145" y="185" font-family="Arial" font-size="14" fill="#34a853" font-weight="bold">a + b</text>
+  
+  <!-- Points labels -->
+  <circle cx="120" cy="110" r="3" fill="#666"/>
+  <circle cx="240" cy="140" r="4" fill="#333"/>
+  
+  <!-- Legend -->
+  <rect x="270" y="40" width="120" height="100" fill="rgba(255,255,255,0.9)" stroke="#ddd" rx="5"/>
+  
+  <line x1="280" y1="60" x2="310" y2="60" stroke="#4285f4" stroke-width="3"/>
+  <text x="320" y="65" font-family="Arial" font-size="12" fill="#333">a = (2, 3)</text>
+  
+  <line x1="280" y1="85" x2="310" y2="85" stroke="#ea4335" stroke-width="3"/>
+  <text x="320" y="90" font-family="Arial" font-size="12" fill="#333">b = (4, -1)</text>
+  
+  <line x1="280" y1="110" x2="310" y2="110" stroke="#34a853" stroke-width="3"/>
+  <text x="320" y="115" font-family="Arial" font-size="12" fill="#333">a + b = (6, 2)</text>
+  
+  <!-- Title -->
+  <text x="200" y="25" font-family="Arial" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">Vector Addition: Triangle Method</text>
+  
+  <!-- Explanation -->
+  <text x="200" y="260" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">Place tail of b at head of a. Resultant goes from start to end.</text>
+</svg>

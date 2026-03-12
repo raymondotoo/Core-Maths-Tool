@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280">
+  <!-- Circle -->
+  <circle cx="175" cy="130" r="80" fill="none" stroke="#333" stroke-width="2"/>
+  
+  <!-- Center O -->
+  <circle cx="175" cy="130" r="3" fill="#333"/>
+  <text x="175" y="145" font-family="Arial" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">O</text>
+  
+  <!-- Arc AB (at bottom) -->
+  <path d="M 105,160 A 80 80 0 0 0 245,160" fill="none" stroke="#ea4335" stroke-width="3"/>
+  
+  <!-- Points A and B on circle -->
+  <circle cx="105" cy="160" r="4" fill="#333"/>
+  <text x="85" y="170" font-family="Arial" font-size="12" fill="#333" font-weight="bold">A</text>
+  
+  <circle cx="245" cy="160" r="4" fill="#333"/>
+  <text x="255" y="170" font-family="Arial" font-size="12" fill="#333" font-weight="bold">B</text>
+  
+  <!-- Point C on circumference -->
+  <circle cx="175" cy="50" r="4" fill="#333"/>
+  <text x="175" y="40" font-family="Arial" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">C</text>
+  
+  <!-- Lines from A, B to O (radii) -->
+  <line x1="175" y1="130" x2="105" y2="160" stroke="#999" stroke-width="1.5"/>
+  <line x1="175" y1="130" x2="245" y2="160" stroke="#999" stroke-width="1.5"/>
+  
+  <!-- Lines from A, B to C -->
+  <line x1="105" y1="160" x2="175" y2="50" stroke="#4285f4" stroke-width="2"/>
+  <line x1="245" y1="160" x2="175" y2="50" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Angle at center (AOB) -->
+  <path d="M 130,147 A 40 40 0 0 1 220,147" fill="none" stroke="#9c27b0" stroke-width="2"/>
+  <text x="175" y="120" font-family="Arial" font-size="14" text-anchor="middle" fill="#9c27b0" font-weight="bold">80°</text>
+  
+  <!-- Angle at circumference (ACB) -->
+  <path d="M 158,67 A 20 20 0 0 1 192,67" fill="none" stroke="#34a853" stroke-width="2"/>
+  <text x="175" y="85" font-family="Arial" font-size="14" text-anchor="middle" fill="#34a853" font-weight="bold">40°</text>
+  
+  <!-- Formula -->
+  <rect x="80" y="230" width="190" height="40" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="175" y="252" font-family="Arial" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">Angle at center = 2 × Angle at circumference</text>
+  <text x="175" y="267" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">80° = 2 × 40°</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 300">
+  <!-- Grid -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#f5f5f5" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="350" height="300" fill="url(#grid)"/>
+  
+  <!-- Axes -->
+  <line x1="30" y1="150" x2="320" y2="150" stroke="#333" stroke-width="2"/>
+  <line x1="175" y1="280" x2="175" y2="20" stroke="#333" stroke-width="2"/>
+  
+  <!-- Arrows -->
+  <polygon points="320,150 310,145 310,155" fill="#333"/>
+  <polygon points="175,20 170,30 180,30" fill="#333"/>
+  
+  <!-- Labels -->
+  <text x="325" y="155" font-family="Arial" font-size="12" fill="#333">x</text>
+  <text x="170" y="15" font-family="Arial" font-size="12" fill="#333">y</text>
+  <text x="165" y="165" font-family="Arial" font-size="10" fill="#333">O</text>
+  
+  <!-- x-axis label -->
+  <text x="280" y="165" font-family="Arial" font-size="10" fill="#666">x-axis</text>
+  
+  <!-- Original point P(3, 5) scaled -->
+  <circle cx="265" cy="60" r="5" fill="#4285f4"/>
+  <text x="275" y="55" font-family="Arial" font-size="12" fill="#4285f4" font-weight="bold">P(3, 5)</text>
+  
+  <!-- Reflected point P'(3, -5) -->
+  <circle cx="265" cy="240" r="5" fill="#ea4335"/>
+  <text x="275" y="250" font-family="Arial" font-size="12" fill="#ea4335" font-weight="bold">P'(3, -5)</text>
+  
+  <!-- Perpendicular line from P to P' -->
+  <line x1="265" y1="60" x2="265" y2="240" stroke="#999" stroke-width="1" stroke-dasharray="5,3"/>
+  
+  <!-- Midpoint on x-axis -->
+  <circle cx="265" cy="150" r="3" fill="#34a853"/>
+  
+  <!-- Legend showing other reflections -->
+  <rect x="35" y="30" width="130" height="90" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="100" y="50" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Reflection Rules:</text>
+  <text x="45" y="68" font-family="Arial" font-size="10" fill="#333">x-axis: (x, y) → (x, -y)</text>
+  <text x="45" y="83" font-family="Arial" font-size="10" fill="#333">y-axis: (x, y) → (-x, y)</text>
+  <text x="45" y="98" font-family="Arial" font-size="10" fill="#333">y = x: (x, y) → (y, x)</text>
+  <text x="45" y="113" font-family="Arial" font-size="10" fill="#333">y = -x: (x, y) → (-y, -x)</text>
+  
+  <!-- Title -->
+  <text x="175" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Reflection in the x-axis</text>
+</svg>

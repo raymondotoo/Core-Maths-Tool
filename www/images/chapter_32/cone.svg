@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 260">
+  <!-- Cone base ellipse -->
+  <ellipse cx="150" cy="210" rx="70" ry="22" fill="rgba(234, 67, 53, 0.2)" stroke="#ea4335" stroke-width="2"/>
+  
+  <!-- Cone sides -->
+  <line x1="80" y1="210" x2="150" y2="40" stroke="#ea4335" stroke-width="2"/>
+  <line x1="220" y1="210" x2="150" y2="40" stroke="#ea4335" stroke-width="2"/>
+  
+  <!-- Apex point -->
+  <circle cx="150" cy="40" r="3" fill="#333"/>
+  
+  <!-- Center of base -->
+  <circle cx="150" cy="210" r="2" fill="#333"/>
+  
+  <!-- Radius on base -->
+  <line x1="150" y1="210" x2="220" y2="210" stroke="#4285f4" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="178" y="228" font-family="Arial" font-size="11" fill="#4285f4" font-weight="bold">r</text>
+  
+  <!-- Height (dashed line inside) -->
+  <line x1="150" y1="40" x2="150" y2="210" stroke="#34a853" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="160" y="130" font-family="Arial" font-size="11" fill="#34a853" font-weight="bold">h</text>
+  
+  <!-- Slant height -->
+  <text x="195" y="130" font-family="Arial" font-size="11" fill="#9c27b0" font-weight="bold">l</text>
+  
+  <!-- Formula box -->
+  <rect x="240" y="50" width="100" height="115" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="290" y="70" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Cone</text>
+  <text x="250" y="90" font-family="Arial" font-size="10" fill="#9c27b0">l = √(r² + h²)</text>
+  <text x="250" y="108" font-family="Arial" font-size="10" fill="#333">V = ⅓πr²h</text>
+  <text x="250" y="126" font-family="Arial" font-size="10" fill="#333">CSA = πrl</text>
+  <text x="250" y="144" font-family="Arial" font-size="10" fill="#333">TSA = πr(l + r)</text>
+  
+  <!-- Title -->
+  <text x="150" y="255" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">r = radius, h = height, l = slant height</text>
+</svg>

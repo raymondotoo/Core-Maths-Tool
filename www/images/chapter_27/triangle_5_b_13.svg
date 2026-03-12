@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 250">
+  <!-- Right triangle with leg 5, hypotenuse 13, other leg unknown -->
+  <polygon points="50,200 200,200 50,50" fill="rgba(251, 188, 5, 0.2)" stroke="#fbbc05" stroke-width="2"/>
+  
+  <!-- Right angle mark -->
+  <rect x="50" y="180" width="20" height="20" fill="none" stroke="#fbbc05" stroke-width="2"/>
+  
+  <!-- Side labels -->
+  <text x="125" y="220" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">5 cm</text>
+  <text x="25" y="130" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#ea4335">b = ?</text>
+  <text x="145" y="115" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold" fill="#333">13 cm</text>
+  
+  <!-- Formula hint -->
+  <text x="150" y="245" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">5² + b² = 13²</text>
+</svg>

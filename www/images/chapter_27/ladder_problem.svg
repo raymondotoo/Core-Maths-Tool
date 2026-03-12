@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 280">
+  <!-- Wall -->
+  <rect x="40" y="30" width="15" height="200" fill="#8d6e63" stroke="#5d4037" stroke-width="1"/>
+  <!-- Brick pattern -->
+  <line x1="40" y1="50" x2="55" y2="50" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="70" x2="55" y2="70" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="90" x2="55" y2="90" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="110" x2="55" y2="110" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="130" x2="55" y2="130" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="150" x2="55" y2="150" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="170" x2="55" y2="170" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="190" x2="55" y2="190" stroke="#5d4037" stroke-width="0.5"/>
+  <line x1="40" y1="210" x2="55" y2="210" stroke="#5d4037" stroke-width="0.5"/>
+  
+  <!-- Ground -->
+  <line x1="20" y1="230" x2="280" y2="230" stroke="#333" stroke-width="2"/>
+  
+  <!-- Ladder -->
+  <line x1="55" y1="70" x2="175" y2="230" stroke="#ff9800" stroke-width="6"/>
+  <line x1="55" y1="70" x2="175" y2="230" stroke="#ffc107" stroke-width="3"/>
+  
+  <!-- Right angle at wall-ground -->
+  <rect x="55" y="215" width="15" height="15" fill="none" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <text x="115" y="250" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold" fill="#333">6 m</text>
+  <text x="130" y="145" font-family="Arial" font-size="16" font-weight="bold" fill="#ff9800">10 m</text>
+  <text x="25" y="150" font-family="Arial" font-size="18" font-weight="bold" fill="#ea4335">h = ?</text>
+  
+  <!-- Height arrow -->
+  <line x1="30" y1="70" x2="30" y2="230" stroke="#ea4335" stroke-width="1" stroke-dasharray="4,2"/>
+  <polygon points="30,70 26,80 34,80" fill="#ea4335"/>
+  <polygon points="30,230 26,220 34,220" fill="#ea4335"/>
+  
+  <!-- Formula -->
+  <text x="220" y="50" font-family="Arial" font-size="12" fill="#666">h² + 6² = 10²</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 220">
+  <!-- Rectangle -->
+  <rect x="40" y="40" width="150" height="90" fill="rgba(66, 133, 244, 0.15)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Dimensions -->
+  <line x1="40" y1="145" x2="190" y2="145" stroke="#333" stroke-width="1"/>
+  <polygon points="40,145 50,142 50,148" fill="#333"/>
+  <polygon points="190,145 180,142 180,148" fill="#333"/>
+  <text x="115" y="160" font-family="Arial" font-size="13" text-anchor="middle" fill="#333" font-weight="bold">12 cm</text>
+  
+  <line x1="205" y1="40" x2="205" y2="130" stroke="#333" stroke-width="1"/>
+  <polygon points="205,40 202,50 208,50" fill="#333"/>
+  <polygon points="205,130 202,120 208,120" fill="#333"/>
+  <text x="220" y="90" font-family="Arial" font-size="13" fill="#333" font-weight="bold">8 cm</text>
+  
+  <!-- Formulas -->
+  <text x="115" y="25" font-family="Arial" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">Rectangle</text>
+  
+  <rect x="240" y="40" width="130" height="80" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="305" y="62" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Formulas:</text>
+  <text x="250" y="82" font-family="Arial" font-size="11" fill="#333">P = 2(l + w)</text>
+  <text x="250" y="100" font-family="Arial" font-size="11" fill="#333">A = l × w</text>
+  
+  <!-- Results -->
+  <rect x="40" y="175" width="200" height="35" fill="rgba(52, 168, 83, 0.1)" stroke="#34a853" rx="3"/>
+  <text x="140" y="193" font-family="Arial" font-size="11" text-anchor="middle" fill="#333">P = 2(12+8) = <tspan font-weight="bold">40 cm</tspan></text>
+  <text x="140" y="206" font-family="Arial" font-size="11" text-anchor="middle" fill="#333">A = 12 × 8 = <tspan font-weight="bold">96 cm²</tspan></text>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 260">
+  <!-- Triangle -->
+  <polygon points="175,40 60,200 290,200" fill="rgba(66, 133, 244, 0.1)" stroke="#333" stroke-width="2"/>
+  
+  <!-- Vertex labels -->
+  <text x="175" y="30" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">A</text>
+  <text x="45" y="210" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">B</text>
+  <text x="305" y="210" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold" fill="#333">C</text>
+  
+  <!-- Angle A arc -->
+  <path d="M 160,70 A 30 30 0 0 1 190,70" fill="none" stroke="#ea4335" stroke-width="2"/>
+  <text x="175" y="95" font-family="Arial" font-size="14" text-anchor="middle" fill="#ea4335" font-weight="bold">50°</text>
+  
+  <!-- Angle B arc -->
+  <path d="M 80,188 A 25 25 0 0 1 90,200" fill="none" stroke="#4285f4" stroke-width="2"/>
+  <text x="100" y="180" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">70°</text>
+  
+  <!-- Angle C arc -->
+  <path d="M 260,200 A 25 25 0 0 0 270,188" fill="none" stroke="#34a853" stroke-width="2"/>
+  <text x="250" y="180" font-family="Arial" font-size="14" fill="#34a853" font-weight="bold">60°</text>
+  
+  <!-- Formula box -->
+  <rect x="90" y="220" width="170" height="35" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="175" y="240" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">A + B + C = 180°</text>
+  <text x="175" y="252" font-family="Arial" font-size="11" text-anchor="middle" fill="#666">50° + 70° + 60° = 180°</text>
+</svg>

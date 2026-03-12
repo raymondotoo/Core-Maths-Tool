@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 200">
+  <!-- Acute angle -->
+  <g transform="translate(30, 20)">
+    <line x1="0" y1="100" x2="60" y2="100" stroke="#333" stroke-width="2"/>
+    <line x1="0" y1="100" x2="50" y2="50" stroke="#333" stroke-width="2"/>
+    <path d="M 20,100 A 20 20 0 0 0 15,85" fill="none" stroke="#4285f4" stroke-width="2"/>
+    <text x="28" y="90" font-family="Arial" font-size="10" fill="#4285f4">45°</text>
+    <text x="20" y="130" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Acute</text>
+    <text x="20" y="145" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">0° &lt; θ &lt; 90°</text>
+  </g>
+  
+  <!-- Right angle -->
+  <g transform="translate(110, 20)">
+    <line x1="0" y1="100" x2="60" y2="100" stroke="#333" stroke-width="2"/>
+    <line x1="0" y1="100" x2="0" y2="40" stroke="#333" stroke-width="2"/>
+    <rect x="0" y="85" width="15" height="15" fill="none" stroke="#ea4335" stroke-width="1.5"/>
+    <text x="25" y="75" font-family="Arial" font-size="10" fill="#ea4335">90°</text>
+    <text x="20" y="130" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Right</text>
+    <text x="20" y="145" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">θ = 90°</text>
+  </g>
+  
+  <!-- Obtuse angle -->
+  <g transform="translate(190, 20)">
+    <line x1="0" y1="100" x2="60" y2="100" stroke="#333" stroke-width="2"/>
+    <line x1="0" y1="100" x2="-30" y2="45" stroke="#333" stroke-width="2"/>
+    <path d="M 25,100 A 25 25 0 0 0 -15,65" fill="none" stroke="#34a853" stroke-width="2"/>
+    <text x="5" y="75" font-family="Arial" font-size="10" fill="#34a853">120°</text>
+    <text x="15" y="130" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Obtuse</text>
+    <text x="15" y="145" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">90° &lt; θ &lt; 180°</text>
+  </g>
+  
+  <!-- Straight angle -->
+  <g transform="translate(275, 20)">
+    <line x1="-30" y1="100" x2="60" y2="100" stroke="#333" stroke-width="2"/>
+    <path d="M 20,100 A 20 20 0 0 0 -20,100" fill="none" stroke="#9c27b0" stroke-width="2"/>
+    <text x="0" y="90" font-family="Arial" font-size="10" fill="#9c27b0">180°</text>
+    <text x="15" y="130" font-family="Arial" font-size="11" text-anchor="middle" fill="#333" font-weight="bold">Straight</text>
+    <text x="15" y="145" font-family="Arial" font-size="9" text-anchor="middle" fill="#666">θ = 180°</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="190" y="180" font-family="Arial" font-size="13" text-anchor="middle" fill="#333" font-weight="bold">Types of Angles</text>
+</svg>

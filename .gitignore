@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# iOS
+ios/App/Pods/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/DerivedData/
+ios/App/App/public/data/
+
+# macOS
+.DS_Store
+
+# Large PDF files
+*.pdf
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# ML model caches (downloaded at runtime)
+data/easyocr/
+data/pix2text/
+data/cnocr/
+data/cnstd/
+data/hf/
+data/ultralytics/
+data/cache/
+data/mpl_cache/

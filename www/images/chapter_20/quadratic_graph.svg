@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 320">
+  <!-- Grid -->
+  <defs>
+    <pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse">
+      <path d="M 35 0 L 0 0 0 35" fill="none" stroke="#eee" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="350" height="320" fill="url(#grid)"/>
+  
+  <!-- Axes -->
+  <line x1="30" y1="220" x2="320" y2="220" stroke="#333" stroke-width="2"/>
+  <line x1="65" y1="290" x2="65" y2="30" stroke="#333" stroke-width="2"/>
+  
+  <!-- Arrows -->
+  <polygon points="320,220 310,215 310,225" fill="#333"/>
+  <polygon points="65,30 60,40 70,40" fill="#333"/>
+  
+  <!-- Labels -->
+  <text x="325" y="225" font-family="Arial" font-size="12" fill="#333">x</text>
+  <text x="60" y="25" font-family="Arial" font-size="12" fill="#333">y</text>
+  
+  <!-- Grid marks x-axis -->
+  <text x="100" y="235" font-family="Arial" font-size="10" fill="#666">1</text>
+  <text x="135" y="235" font-family="Arial" font-size="10" fill="#666">2</text>
+  <text x="170" y="235" font-family="Arial" font-size="10" fill="#666">3</text>
+  <text x="205" y="235" font-family="Arial" font-size="10" fill="#666">4</text>
+  
+  <!-- Grid marks y-axis -->
+  <text x="52" y="187" font-family="Arial" font-size="10" fill="#666">1</text>
+  <text x="52" y="152" font-family="Arial" font-size="10" fill="#666">2</text>
+  <text x="52" y="117" font-family="Arial" font-size="10" fill="#666">3</text>
+  <text x="52" y="252" font-family="Arial" font-size="10" fill="#666">-1</text>
+  
+  <!-- Parabola y = x² - 4x + 3 -->
+  <!-- Points: (0,3), (1,0), (2,-1), (3,0), (4,3) -->
+  <!-- x=0→65, x=1→100, x=2→135, x=3→170, x=4→205 -->
+  <!-- y=0→220, y=1→185, y=-1→255, y=3→115 -->
+  <path d="M 65,115 Q 100,220 135,255 Q 170,220 205,115" fill="none" stroke="#4285f4" stroke-width="3"/>
+  
+  <!-- More accurate parabola using curve -->
+  <path d="M 55,135 C 80,255 170,255 215,115" fill="none" stroke="#4285f4" stroke-width="3"/>
+  
+  <!-- Key points -->
+  <!-- y-intercept (0, 3) -->
+  <circle cx="65" cy="115" r="5" fill="#34a853"/>
+  <text x="75" y="110" font-family="Arial" font-size="10" fill="#34a853">(0, 3)</text>
+  
+  <!-- x-intercepts (1, 0) and (3, 0) -->
+  <circle cx="100" cy="220" r="5" fill="#ea4335"/>
+  <text x="85" y="210" font-family="Arial" font-size="10" fill="#ea4335">(1, 0)</text>
+  
+  <circle cx="170" cy="220" r="5" fill="#ea4335"/>
+  <text x="175" y="210" font-family="Arial" font-size="10" fill="#ea4335">(3, 0)</text>
+  
+  <!-- Vertex (2, -1) -->
+  <circle cx="135" cy="255" r="6" fill="#9c27b0"/>
+  <text x="145" y="265" font-family="Arial" font-size="10" fill="#9c27b0">Vertex (2, -1)</text>
+  
+  <!-- Axis of symmetry -->
+  <line x1="135" y1="40" x2="135" y2="280" stroke="#999" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="140" y="60" font-family="Arial" font-size="10" fill="#666">x = 2</text>
+  
+  <!-- Label -->
+  <text x="240" y="100" font-family="Arial" font-size="14" fill="#4285f4" font-weight="bold">y = x² - 4x + 3</text>
+  
+  <!-- Title -->
+  <text x="175" y="305" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Quadratic function (parabola)</text>
+</svg>

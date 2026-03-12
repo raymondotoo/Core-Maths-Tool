@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 250">
+  <!-- Cylinder base ellipse -->
+  <ellipse cx="150" cy="200" rx="60" ry="20" fill="rgba(66, 133, 244, 0.2)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Cylinder body -->
+  <line x1="90" y1="200" x2="90" y2="60" stroke="#4285f4" stroke-width="2"/>
+  <line x1="210" y1="200" x2="210" y2="60" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Cylinder top ellipse -->
+  <ellipse cx="150" cy="60" rx="60" ry="20" fill="rgba(66, 133, 244, 0.3)" stroke="#4285f4" stroke-width="2"/>
+  
+  <!-- Center point and radius -->
+  <circle cx="150" cy="60" r="2" fill="#333"/>
+  <line x1="150" y1="60" x2="210" y2="60" stroke="#ea4335" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="175" y="50" font-family="Arial" font-size="11" fill="#ea4335" font-weight="bold">r = 7 cm</text>
+  
+  <!-- Height dimension -->
+  <line x1="230" y1="60" x2="230" y2="200" stroke="#333" stroke-width="1"/>
+  <polygon points="230,60 227,70 233,70" fill="#333"/>
+  <polygon points="230,200 227,190 233,190" fill="#333"/>
+  <text x="245" y="135" font-family="Arial" font-size="11" fill="#333" font-weight="bold">h = 10 cm</text>
+  
+  <!-- Formula box -->
+  <rect x="250" y="50" width="95" height="80" fill="rgba(255,255,255,0.95)" stroke="#ddd" rx="3"/>
+  <text x="297" y="68" font-family="Arial" font-size="10" text-anchor="middle" fill="#333" font-weight="bold">Cylinder</text>
+  <text x="258" y="85" font-family="Arial" font-size="9" fill="#333">V = πr²h</text>
+  <text x="258" y="100" font-family="Arial" font-size="9" fill="#333">CSA = 2πrh</text>
+  <text x="258" y="115" font-family="Arial" font-size="9" fill="#333">TSA = 2πr(h+r)</text>
+  <text x="258" y="128" font-family="Arial" font-size="9" fill="#34a853" font-weight="bold">= 747.7 cm²</text>
+</svg>
