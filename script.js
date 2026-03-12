@@ -488,7 +488,8 @@ function decorateMarkdownExamples(root) {
                 solutionHeading = cursor;
                 break;
             }
-            if (cursor.tagName === 'H2' || cursor.tagName === 'H3') break;
+            // Stop if we hit a section boundary
+            if (cursor.tagName === 'H2' || cursor.tagName === 'H3' || cursor.tagName === 'HR') break;
             cursor = cursor.nextElementSibling;
         }
         if (!solutionHeading) return;
@@ -497,16 +498,26 @@ function decorateMarkdownExamples(root) {
         const problemNodes = [];
         cursor = h3.nextElementSibling;
         while (cursor && cursor !== solutionHeading) {
+            // Skip "Problem" h4 heading if present
+            if (cursor.tagName === 'H4' && /^Problem/i.test(cursor.textContent.trim())) {
+                cursor = cursor.nextElementSibling;
+                continue;
+            }
             const next = cursor.nextElementSibling;
             problemNodes.push(cursor);
             cursor = next;
         }
 
-        // Collect solution nodes (after solutionHeading up to next h2/h3)
+        // Collect solution nodes (after solutionHeading up to next section/example/hr)
         const solutionNodes = [];
         cursor = solutionHeading.nextElementSibling;
         while (cursor) {
-            if (cursor.tagName === 'H2' || cursor.tagName === 'H3') break;
+            // Stop at section boundaries
+            if (cursor.tagName === 'H2' || cursor.tagName === 'H3' || cursor.tagName === 'HR') break;
+            
+            // Stop at another h4 that isn't part of the solution (like "Problem" for next example)
+            if (cursor.tagName === 'H4' && !/^(Step|Part|Note|Answer|Therefore|Hence|Thus)/i.test(cursor.textContent.trim())) break;
+            
             const next = cursor.nextElementSibling;
             solutionNodes.push(cursor);
             cursor = next;
@@ -540,20 +551,50 @@ function decorateMarkdownExamples(root) {
         const stepsWrapper = document.createElement('div');
         stepsWrapper.className = 'solution-steps';
 
+        // Group solution content more intelligently
         let stepNo = 1;
-        solutionNodes.forEach(node => {
-            const stepItem = document.createElement('div');
-            stepItem.className = 'step-item';
-
-            const badge = document.createElement('span');
-            badge.className = 'step-number';
-            badge.textContent = stepNo.toString();
-            stepItem.appendChild(badge);
-
-            stepItem.appendChild(node);
-            stepsWrapper.appendChild(stepItem);
-            stepNo += 1;
+        let currentStepContent = [];
+        
+        solutionNodes.forEach((node, index) => {
+            const text = node.textContent.trim();
+            const isLast = index === solutionNodes.length - 1;
+            
+            // Check if this is a final answer (bold text at end, or starts with answer keywords)
+            const isFinalAnswer = isLast || 
+                /^(Therefore|Hence|Thus|Answer|∴|The answer|So,?\s+(the\s+)?answer)/i.test(text) ||
+                (node.querySelector('strong') && isLast);
+            
+            // Check if this starts a new logical step
+            const startsNewStep = /^(\(?\s*[a-z]\s*\)|Step\s*\d|Part\s*[a-z]|\d+[\.\)])/i.test(text);
+            
+            if (startsNewStep && currentStepContent.length > 0) {
+                // Flush current step
+                createStepItem(stepsWrapper, stepNo, currentStepContent);
+                stepNo++;
+                currentStepContent = [];
+            }
+            
+            if (isFinalAnswer && !startsNewStep) {
+                // Flush any pending content first
+                if (currentStepContent.length > 0) {
+                    createStepItem(stepsWrapper, stepNo, currentStepContent);
+                    stepNo++;
+                    currentStepContent = [];
+                }
+                // Create answer box instead of regular step
+                const answerBox = document.createElement('div');
+                answerBox.className = 'answer-box';
+                answerBox.appendChild(node);
+                stepsWrapper.appendChild(answerBox);
+            } else {
+                currentStepContent.push(node);
+            }
         });
+        
+        // Flush remaining content
+        if (currentStepContent.length > 0) {
+            createStepItem(stepsWrapper, stepNo, currentStepContent);
+        }
 
         hidden.appendChild(stepsWrapper);
         container.appendChild(hidden);
@@ -565,6 +606,24 @@ function decorateMarkdownExamples(root) {
         h3.remove();
         solutionHeading.remove();
     });
+}
+
+// Helper to create a step item with badge
+function createStepItem(wrapper, stepNo, nodes) {
+    const stepItem = document.createElement('div');
+    stepItem.className = 'step-item';
+
+    const badge = document.createElement('span');
+    badge.className = 'step-number';
+    badge.textContent = stepNo.toString();
+    stepItem.appendChild(badge);
+
+    const content = document.createElement('div');
+    content.className = 'step-content';
+    nodes.forEach(node => content.appendChild(node));
+    stepItem.appendChild(content);
+    
+    wrapper.appendChild(stepItem);
 }
 
 // Normalize markdown-rendered chapters so they visually match static chapters 1–7
