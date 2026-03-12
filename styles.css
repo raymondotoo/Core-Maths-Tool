@@ -1129,7 +1129,7 @@ mjx-container[display="true"] {
     width: 0%;
     height: 4px;
     background: linear-gradient(90deg, var(--primary-500), var(--accent-teal), var(--accent-emerald));
-    z-index: 9999;
+    z-index: 101;
     transition: width 0.1s ease-out;
 }
 
