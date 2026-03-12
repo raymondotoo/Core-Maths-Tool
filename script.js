@@ -36,6 +36,8 @@ function navigateToChapter(chapterId, subsectionId) {
         if (mdContainer) {
             loadMarkdownContent(mdContainer).then(() => {
                 scrollToSubsection(targetSection, subsectionId);
+                // Prefetch adjacent chapters for faster navigation
+                prefetchAdjacentChapters(chapterId);
             });
         } else {
             scrollToSubsection(targetSection, subsectionId);
@@ -44,6 +46,33 @@ function navigateToChapter(chapterId, subsectionId) {
 
     const hash = subsectionId ? `#${subsectionId}` : `#${chapterId}`;
     window.history.pushState(null, '', hash);
+}
+
+// Prefetch next/prev chapters in the background
+function prefetchAdjacentChapters(currentChapterId) {
+    const match = currentChapterId.match(/chapter(\d+)/);
+    if (!match) return;
+    
+    const currentNum = parseInt(match[1], 10);
+    const adjacentIds = [currentNum - 1, currentNum + 1];
+    
+    adjacentIds.forEach(num => {
+        const section = document.getElementById(`chapter${num}`);
+        if (section) {
+            const container = section.querySelector('.chapter-md-content');
+            if (container && container.dataset.loaded !== 'true' && container.dataset.mdFile) {
+                // Prefetch in idle time
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(() => {
+                        fetch(`data/chapters/${container.dataset.mdFile}`)
+                            .then(resp => resp.text())
+                            .then(md => markdownCache.set(container.dataset.mdFile, md))
+                            .catch(() => {}); // Silently ignore prefetch errors
+                    });
+                }
+            }
+        }
+    });
 }
 
 function scrollToSubsection(section, subsectionId) {
@@ -264,11 +293,22 @@ function parseChaptersCsv(text) {
     }).filter(ch => !Number.isNaN(ch.id) && ch.md_file);
 }
 
+// Simple in-memory cache for loaded markdown
+const markdownCache = new Map();
+
 // Lazy-load markdown content into a container using marked.js
 function loadMarkdownContent(container) {
     const mdFile = container.dataset.mdFile;
     if (!mdFile) return Promise.resolve();
     if (container.dataset.loaded === 'true') return Promise.resolve();
+    
+    // Show loading state
+    container.innerHTML = '<div class="content-skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>';
+    
+    // Check cache first
+    if (markdownCache.has(mdFile)) {
+        return processMarkdown(container, markdownCache.get(mdFile));
+    }
 
     return fetch(`data/chapters/${mdFile}`)
         .then(resp => {
@@ -276,40 +316,50 @@ function loadMarkdownContent(container) {
             return resp.text();
         })
         .then(md => {
-            // Remove consecutive tildes to prevent strikethrough rendering from OCR noise
-            // Keep single tildes in math notation but remove ~~text~~ patterns
-            const cleanedMd = md.replace(/~~+/g, '');
-            
-            if (window.marked) {
-                container.innerHTML = window.marked.parse(cleanedMd);
-            } else {
-                // Fallback: basic preformatted text
-                container.textContent = md;
-            }
-            container.dataset.loaded = 'true';
-
-            // Convert markdown "Example ... / Solution" blocks into
-            // step-by-step expandable problem containers like chapters 1–7
-            decorateMarkdownExamples(container);
-
-            // Normalize headings, practice checks, and overall structure
-            normalizeMarkdownStructure(container);
-
-            // Build an example index at the top of the chapter for quick access
-            buildExamplesIndex(container);
-
-            // Restore completed example styling inside this newly loaded content
-            restoreExampleCompletionState(container);
-
-            // Re-typeset maths, if MathJax is available
-            if (window.MathJax && MathJax.typesetPromise) {
-                MathJax.typesetPromise();
-            }
+            // Cache the raw markdown
+            markdownCache.set(mdFile, md);
+            return processMarkdown(container, md);
         })
         .catch(err => {
             console.error(err);
-            container.innerHTML = '<p>Unable to load this chapter content.</p>';
+            container.innerHTML = '<p class="error-message">Unable to load this chapter. Please try again.</p>';
         });
+}
+
+// Process markdown content and render it
+function processMarkdown(container, md) {
+    // Remove consecutive tildes to prevent strikethrough rendering from OCR noise
+    const cleanedMd = md.replace(/~~+/g, '');
+    
+    if (window.marked) {
+        container.innerHTML = window.marked.parse(cleanedMd);
+    } else {
+        container.textContent = md;
+    }
+    container.dataset.loaded = 'true';
+
+    // Convert markdown "Example ... / Solution" blocks into expandable containers
+    decorateMarkdownExamples(container);
+
+    // Normalize headings, practice checks, and overall structure
+    normalizeMarkdownStructure(container);
+
+    // Build an example index at the top of the chapter for quick access
+    buildExamplesIndex(container);
+
+    // Restore completed example styling
+    restoreExampleCompletionState(container);
+
+    // Re-typeset maths, if MathJax is available (debounced)
+    if (window.MathJax && MathJax.typesetPromise) {
+        // Small delay to batch multiple typeset calls
+        clearTimeout(window._mathJaxTimeout);
+        window._mathJaxTimeout = setTimeout(() => {
+            MathJax.typesetPromise([container]).catch(err => console.warn('MathJax error:', err));
+        }, 100);
+    }
+    
+    return Promise.resolve();
 }
 
 // Create navigation entries and empty sections for markdown-backed chapters (1–39)
@@ -325,10 +375,11 @@ function initMarkdownChapters() {
             const main = document.querySelector('main');
             if (!navList || !main) return [];
 
+            // Store chapters globally for TOC building
+            window._chaptersData = chapters;
+
             // Reset nav list to avoid any leftover static items
             navList.innerHTML = '';
-
-            const loadPromises = [];
 
             chapters.forEach(ch => {
                 // Add nav link if not already present
@@ -358,28 +409,64 @@ function initMarkdownChapters() {
                     const mdContainer = document.createElement('div');
                     mdContainer.className = 'chapter-md-content';
                     mdContainer.dataset.mdFile = ch.md_file;
+                    
+                    // Add loading skeleton instead of loading content
+                    mdContainer.innerHTML = '<div class="content-skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div>';
 
                     wrapper.appendChild(mdContainer);
                     section.appendChild(titleEl);
                     section.appendChild(wrapper);
                     main.appendChild(section);
-
-                    // Preload markdown so we can build a full table of contents
-                    loadPromises.push(loadMarkdownContent(mdContainer));
+                    
+                    // DON'T preload - lazy load when navigated to
                 }
             });
 
-            return Promise.all(loadPromises);
-        })
-        .then(() => {
-            // Build the side-pane table of contents once chapters are ready
-            buildTableOfContents();
+            // Build simple TOC from chapter data (not content)
+            buildSimpleTOC(chapters);
+            
+            // Hide loading splash, show content
+            const splash = document.getElementById('loadingSplash');
+            const container = document.getElementById('mainContainer');
+            if (splash) splash.style.display = 'none';
+            if (container) container.classList.add('loaded');
+            
+            return Promise.resolve();
         })
         .catch(err => {
             console.error(err);
-            // Fallback: still try to build TOC for static chapters
-            buildTableOfContents();
+            // Hide loading splash even on error
+            const splash = document.getElementById('loadingSplash');
+            const container = document.getElementById('mainContainer');
+            if (splash) splash.style.display = 'none';
+            if (container) container.classList.add('loaded');
         });
+}
+
+// Simple TOC built from chapter titles (fast, no content parsing needed)
+function buildSimpleTOC(chapters) {
+    const tocBody = document.getElementById('toc-body');
+    if (!tocBody) return;
+    
+    const ul = document.createElement('ul');
+    ul.className = 'toc-list';
+    
+    chapters.forEach(ch => {
+        const li = document.createElement('li');
+        li.className = 'toc-chapter';
+        const a = document.createElement('a');
+        a.href = `#chapter${ch.id}`;
+        a.textContent = `${ch.id}. ${ch.title}`;
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToChapter(`chapter${ch.id}`);
+        });
+        li.appendChild(a);
+        ul.appendChild(li);
+    });
+    
+    tocBody.innerHTML = '';
+    tocBody.appendChild(ul);
 }
 
 // Convert markdown "Example ... / Solution" sections into step-by-step
@@ -844,4 +931,255 @@ function toggleBookmark(sectionId) {
     }
     
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+}
+
+// ============================================
+// Enhanced UI Features
+// ============================================
+
+// Initialize all enhanced UI features
+document.addEventListener('DOMContentLoaded', function() {
+    initDarkMode();
+    initFontSizeControls();
+    initBackToTop();
+    initReadingProgress();
+    initImageLightbox();
+    initCollapsibleToc();
+    initKeyboardShortcuts();
+});
+
+// Dark Mode Toggle
+function initDarkMode() {
+    const toggle = document.getElementById('darkModeToggle');
+    if (!toggle) return;
+    
+    // Check saved preference or system preference
+    const savedMode = localStorage.getItem('darkMode');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedMode === 'true' || (savedMode === null && prefersDark)) {
+        document.body.classList.add('dark-mode');
+    }
+    
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+}
+
+// Font Size Controls
+function initFontSizeControls() {
+    const decreaseBtn = document.getElementById('fontDecrease');
+    const increaseBtn = document.getElementById('fontIncrease');
+    if (!decreaseBtn || !increaseBtn) return;
+    
+    const sizes = ['font-small', '', 'font-large', 'font-xlarge'];
+    let currentSize = parseInt(localStorage.getItem('fontSize') || '1', 10);
+    
+    // Apply saved font size
+    if (sizes[currentSize]) {
+        document.body.classList.add(sizes[currentSize]);
+    }
+    
+    decreaseBtn.addEventListener('click', () => {
+        if (currentSize > 0) {
+            document.body.classList.remove(sizes[currentSize]);
+            currentSize--;
+            if (sizes[currentSize]) document.body.classList.add(sizes[currentSize]);
+            localStorage.setItem('fontSize', currentSize);
+        }
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+        if (currentSize < sizes.length - 1) {
+            document.body.classList.remove(sizes[currentSize]);
+            currentSize++;
+            if (sizes[currentSize]) document.body.classList.add(sizes[currentSize]);
+            localStorage.setItem('fontSize', currentSize);
+        }
+    });
+}
+
+// Back to Top Button
+function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    if (!btn) return;
+    
+    const showThreshold = 300;
+    
+    const checkScroll = throttle(() => {
+        if (window.scrollY > showThreshold) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }, 100);
+    
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Throttle utility for scroll performance
+function throttle(fn, wait) {
+    let lastTime = 0;
+    return function(...args) {
+        const now = Date.now();
+        if (now - lastTime >= wait) {
+            lastTime = now;
+            fn.apply(this, args);
+        }
+    };
+}
+
+// Reading Progress Bar
+function initReadingProgress() {
+    const progressBar = document.getElementById('readingProgress');
+    if (!progressBar) return;
+    
+    const updateProgress = throttle(() => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = progress + '%';
+    }, 16); // ~60fps
+    
+    window.addEventListener('scroll', updateProgress, { passive: true });
+}
+
+// Image Lightbox
+function initImageLightbox() {
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.chapter-md-content img')) {
+            const lightbox = document.createElement('div');
+            lightbox.className = 'image-lightbox';
+            lightbox.innerHTML = `<img src="${e.target.src}" alt="${e.target.alt || 'Image'}">`;
+            lightbox.addEventListener('click', () => lightbox.remove());
+            document.body.appendChild(lightbox);
+            
+            // Close with Escape key
+            const closeOnEscape = (evt) => {
+                if (evt.key === 'Escape') {
+                    lightbox.remove();
+                    document.removeEventListener('keydown', closeOnEscape);
+                }
+            };
+            document.addEventListener('keydown', closeOnEscape);
+        }
+    });
+}
+
+// Collapsible TOC on Mobile
+function initCollapsibleToc() {
+    const tocPanel = document.getElementById('toc-panel');
+    const tocBody = document.getElementById('toc-body');
+    const tocTitle = tocPanel?.querySelector('.toc-title');
+    if (!tocPanel || !tocBody) return;
+    
+    // Create toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'toc-toggle';
+    toggleBtn.textContent = 'Table of Contents';
+    
+    // Insert before toc-body
+    tocPanel.insertBefore(toggleBtn, tocBody);
+    
+    // Start collapsed on mobile
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        tocBody.classList.add('collapsed');
+        toggleBtn.classList.add('collapsed');
+        if (tocTitle) tocTitle.style.display = 'none';
+    }
+    
+    toggleBtn.addEventListener('click', () => {
+        tocBody.classList.toggle('collapsed');
+        toggleBtn.classList.toggle('collapsed');
+    });
+    
+    // Handle resize
+    window.addEventListener('resize', () => {
+        const nowMobile = window.innerWidth <= 768;
+        if (!nowMobile) {
+            tocBody.classList.remove('collapsed');
+            toggleBtn.classList.remove('collapsed');
+            if (tocTitle) tocTitle.style.display = '';
+        } else {
+            if (tocTitle) tocTitle.style.display = 'none';
+        }
+    });
+}
+
+// Keyboard Shortcuts
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Don't trigger if typing in an input
+        if (e.target.matches('input, textarea')) return;
+        
+        // D: Toggle dark mode
+        if (e.key === 'd' && !e.ctrlKey && !e.metaKey) {
+            document.getElementById('darkModeToggle')?.click();
+        }
+        
+        // T: Scroll to top
+        if (e.key === 't' && !e.ctrlKey && !e.metaKey) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Left/Right arrows for chapter navigation
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            const activeLink = document.querySelector('nav a.active');
+            if (activeLink) {
+                const allLinks = Array.from(document.querySelectorAll('nav a'));
+                const currentIndex = allLinks.indexOf(activeLink);
+                const newIndex = e.key === 'ArrowLeft' ? currentIndex - 1 : currentIndex + 1;
+                
+                if (newIndex >= 0 && newIndex < allLinks.length) {
+                    allLinks[newIndex].click();
+                }
+            }
+        }
+        
+        // ? : Show keyboard shortcuts
+        if (e.key === '?') {
+            showKeyboardHints();
+        }
+    });
+}
+
+function showKeyboardHints() {
+    // Remove existing hint
+    const existing = document.querySelector('.keyboard-hint-modal');
+    if (existing) {
+        existing.remove();
+        return;
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'image-lightbox keyboard-hint-modal';
+    modal.innerHTML = `
+        <div style="background: var(--gray-800); color: white; padding: 2rem; border-radius: 1rem; max-width: 400px;">
+            <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">⌨️ Keyboard Shortcuts</h3>
+            <ul style="list-style: none; line-height: 2;">
+                <li><kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">D</kbd> Toggle dark mode</li>
+                <li><kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">T</kbd> Scroll to top</li>
+                <li><kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">←</kbd> <kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">→</kbd> Navigate chapters</li>
+                <li><kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">Esc</kbd> Close modals</li>
+                <li><kbd style="background: #4b5563; padding: 4px 8px; border-radius: 4px;">?</kbd> Show this help</li>
+            </ul>
+            <p style="margin-top: 1rem; opacity: 0.7; font-size: 0.85rem;">Click anywhere to close</p>
+        </div>
+    `;
+    modal.addEventListener('click', () => modal.remove());
+    document.body.appendChild(modal);
+    
+    const closeOnEscape = (evt) => {
+        if (evt.key === 'Escape') {
+            modal.remove();
+            document.removeEventListener('keydown', closeOnEscape);
+        }
+    };
+    document.addEventListener('keydown', closeOnEscape);
 }

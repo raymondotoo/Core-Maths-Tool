@@ -386,6 +386,51 @@ main {
     to { transform: rotate(360deg); }
 }
 
+/* Content Skeleton Loader */
+.content-skeleton {
+    padding: var(--space-4);
+}
+
+.skeleton-line {
+    height: 1rem;
+    background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+    background-size: 200% 100%;
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-3);
+}
+
+.skeleton-line.short {
+    width: 60%;
+}
+
+.skeleton-line:nth-child(3) {
+    width: 80%;
+}
+
+@keyframes skeletonPulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.error-message {
+    color: var(--error);
+    padding: var(--space-4);
+    background: var(--error-light);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--error);
+}
+
+/* Hide loading splash when content ready */
+.loading-splash {
+    transition: opacity 0.3s ease;
+}
+
+.loading-splash.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ============================================
    Chapter Content
    ============================================ */
@@ -1059,6 +1104,429 @@ mjx-container[display="true"] {
 }
 
 /* ============================================
+   Reading Progress Bar (Top)
+   ============================================ */
+.reading-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-500), var(--accent-teal), var(--accent-emerald));
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+}
+
+/* ============================================
+   Floating Toolbar
+   ============================================ */
+.floating-toolbar {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    z-index: 1000;
+}
+
+.toolbar-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--gray-800);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-fast);
+    opacity: 0.9;
+}
+
+.toolbar-btn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    background: var(--primary-600);
+}
+
+#darkModeToggle .icon-dark {
+    display: none;
+}
+
+#backToTop {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}
+
+#backToTop.visible {
+    opacity: 0.9;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* ============================================
+   Dark Mode
+   ============================================ */
+body.dark-mode {
+    --gray-50: #1f2937;
+    --gray-100: #374151;
+    --gray-200: #4b5563;
+    --gray-300: #6b7280;
+    --gray-400: #9ca3af;
+    --gray-500: #d1d5db;
+    --gray-600: #e5e7eb;
+    --gray-700: #f3f4f6;
+    --gray-800: #f9fafb;
+    --gray-900: #ffffff;
+    
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+body.dark-mode .container {
+    background-color: #1e293b;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+body.dark-mode header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+}
+
+body.dark-mode nav a {
+    background: rgba(255,255,255,0.05);
+}
+
+body.dark-mode nav a:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+body.dark-mode nav a.active {
+    background: var(--primary-600);
+    color: white;
+}
+
+body.dark-mode #toc-panel {
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border-color: #374151;
+}
+
+body.dark-mode .section {
+    background: #1e293b;
+    border-color: #374151;
+}
+
+body.dark-mode .example-box,
+body.dark-mode .problem-container {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+body.dark-mode .hidden-content {
+    background: #0f172a;
+    border-color: #374151;
+}
+
+body.dark-mode .step-item {
+    background: #1e293b;
+    border-color: #374151;
+}
+
+body.dark-mode .progress-container {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #374151;
+}
+
+body.dark-mode .chapter-md-content {
+    color: #e2e8f0;
+}
+
+body.dark-mode .chapter-md-content blockquote {
+    background: #1e3a5f;
+    border-color: var(--primary-500);
+    color: #cbd5e1;
+}
+
+body.dark-mode .mod-table td,
+body.dark-mode .operation-table td {
+    background: #1e293b;
+    border-color: #374151;
+}
+
+body.dark-mode .toolbar-btn {
+    background: #374151;
+}
+
+body.dark-mode #darkModeToggle .icon-light {
+    display: none;
+}
+
+body.dark-mode #darkModeToggle .icon-dark {
+    display: block;
+}
+
+body.dark-mode .examples-index {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #374151;
+}
+
+body.dark-mode .learn-obj {
+    background: linear-gradient(135deg, #164e63 0%, #0e7490 100%);
+    color: #e0f2fe;
+}
+
+body.dark-mode .practice-box {
+    background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    color: #fef3c7;
+}
+
+body.dark-mode .answer-box {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    border-color: var(--success);
+    color: #d1fae5;
+}
+
+body.dark-mode .skeleton-line {
+    background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+    background-size: 200% 100%;
+}
+
+body.dark-mode .error-message {
+    background: #7f1d1d;
+    border-color: #ef4444;
+    color: #fecaca;
+}
+
+/* ============================================
+   Font Size Adjustments
+   ============================================ */
+body.font-small {
+    font-size: 14px;
+}
+
+body.font-small .chapter-md-content {
+    font-size: 0.95rem;
+}
+
+body.font-large {
+    font-size: 18px;
+}
+
+body.font-large .chapter-md-content {
+    font-size: 1.25rem;
+}
+
+body.font-xlarge {
+    font-size: 20px;
+}
+
+body.font-xlarge .chapter-md-content {
+    font-size: 1.4rem;
+}
+
+/* ============================================
+   Enhanced Image Styling
+   ============================================ */
+.chapter-md-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-5) auto;
+    display: block;
+    transition: all var(--transition-base);
+    cursor: zoom-in;
+}
+
+.chapter-md-content img:hover {
+    box-shadow: var(--shadow-xl);
+    transform: scale(1.02);
+}
+
+/* Image lightbox when clicked */
+.image-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    cursor: zoom-out;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* ============================================
+   Keyboard Shortcuts Hint
+   ============================================ */
+.keyboard-hint {
+    position: fixed;
+    bottom: var(--space-6);
+    left: var(--space-6);
+    background: var(--gray-800);
+    color: white;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    opacity: 0.7;
+    z-index: 100;
+    display: none;
+}
+
+.keyboard-hint kbd {
+    background: var(--gray-600);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+/* ============================================
+   Tooltip Styles
+   ============================================ */
+.math-tooltip {
+    position: absolute;
+    background: var(--gray-900);
+    color: white;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    max-width: 300px;
+    z-index: 1000;
+    box-shadow: var(--shadow-xl);
+    pointer-events: none;
+    animation: tooltipFade 0.2s ease;
+}
+
+@keyframes tooltipFade {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.math-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--gray-900);
+}
+
+/* ============================================
+   Chapter Navigation Buttons
+   ============================================ */
+.chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 2px solid var(--gray-200);
+}
+
+.chapter-nav-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-5);
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.chapter-nav-btn:hover {
+    background: var(--primary-50);
+    border-color: var(--primary-300);
+    color: var(--primary-700);
+    transform: translateX(4px);
+}
+
+.chapter-nav-btn.prev:hover {
+    transform: translateX(-4px);
+}
+
+body.dark-mode .chapter-nav-btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark-mode .chapter-nav-btn:hover {
+    background: #1e3a5f;
+    border-color: var(--primary-500);
+}
+
+/* ============================================
+   Collapsible TOC Toggle (Mobile)
+   ============================================ */
+.toc-toggle {
+    display: none;
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--primary-600);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: var(--space-3);
+}
+
+.toc-toggle::after {
+    content: " ▼";
+    font-size: 0.8em;
+}
+
+.toc-toggle.collapsed::after {
+    content: " ▶";
+}
+
+@media (max-width: 768px) {
+    .toc-toggle {
+        display: block;
+    }
+    
+    #toc-body.collapsed {
+        display: none;
+    }
+    
+    .floating-toolbar {
+        bottom: var(--space-4);
+        right: var(--space-4);
+    }
+    
+    .toolbar-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .keyboard-hint {
+        display: none !important;
+    }
+}
+
+/* ============================================
    Print Styles
    ============================================ */
 @media print {
@@ -1085,5 +1553,10 @@ mjx-container[display="true"] {
         box-shadow: none;
         border: 1px solid #ddd;
         break-inside: avoid;
+    }
+    
+    .floating-toolbar,
+    .reading-progress-bar {
+        display: none !important;
     }
 }
