@@ -32,15 +32,19 @@ function navigateToChapter(chapterId, subsectionId) {
 
     const targetSection = document.getElementById(chapterId);
     if (targetSection) {
+        // Scroll immediately - don't wait for content
+        scrollToSubsection(targetSection, subsectionId);
+        
         const mdContainer = targetSection.querySelector('.chapter-md-content');
-        if (mdContainer) {
+        if (mdContainer && mdContainer.dataset.loaded !== 'true') {
+            // Load content in background
             loadMarkdownContent(mdContainer).then(() => {
-                scrollToSubsection(targetSection, subsectionId);
                 // Prefetch adjacent chapters for faster navigation
                 prefetchAdjacentChapters(chapterId);
             });
         } else {
-            scrollToSubsection(targetSection, subsectionId);
+            // Already loaded, just prefetch neighbors
+            prefetchAdjacentChapters(chapterId);
         }
     }
 
@@ -205,10 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Dynamically add nav links and sections for all markdown-based chapters (1–39)
     initMarkdownChapters().then(() => {
-        // After chapters are injected and markdown loaded, wire observers and bookmarks
-        setupSectionObservers();
-        setupBookmarkFeature();
-
         // If there is an anchor in the URL, show that chapter; otherwise default to chapter 1
         const hash = window.location.hash;
         let targetId = hash && hash.startsWith('#') ? hash.substring(1) : 'chapter1';
@@ -217,6 +217,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link) {
             link.click();
         }
+        
+        // Defer non-critical setup to after initial render
+        requestAnimationFrame(() => {
+            setupSectionObservers();
+            setupBookmarkFeature();
+            restoreExampleCompletionState();
+        });
     });
 
     // Delegate navigation click handling so it also works for dynamically-added links
@@ -247,11 +254,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add search functionality
-    setupSearchFunctionality();
-
-        // Restore completed-state styling for any examples the user has already opened
-        restoreExampleCompletionState();
+    // Defer search functionality setup
+    setTimeout(setupSearchFunctionality, 100);
 
 });
 
@@ -338,28 +342,76 @@ function processMarkdown(container, md) {
     }
     container.dataset.loaded = 'true';
 
-    // Convert markdown "Example ... / Solution" blocks into expandable containers
-    decorateMarkdownExamples(container);
+    // Defer heavy DOM processing to not block render
+    requestAnimationFrame(() => {
+        // Convert markdown "Example ... / Solution" blocks into expandable containers
+        decorateMarkdownExamples(container);
 
-    // Normalize headings, practice checks, and overall structure
-    normalizeMarkdownStructure(container);
+        // Normalize headings, practice checks, and overall structure
+        normalizeMarkdownStructure(container);
 
-    // Build an example index at the top of the chapter for quick access
-    buildExamplesIndex(container);
+        // Build an example index at the top of the chapter for quick access
+        buildExamplesIndex(container);
 
-    // Restore completed example styling
-    restoreExampleCompletionState(container);
+        // Restore completed example styling
+        restoreExampleCompletionState(container);
 
-    // Re-typeset maths, if MathJax is available (debounced)
-    if (window.MathJax && MathJax.typesetPromise) {
-        // Small delay to batch multiple typeset calls
-        clearTimeout(window._mathJaxTimeout);
-        window._mathJaxTimeout = setTimeout(() => {
-            MathJax.typesetPromise([container]).catch(err => console.warn('MathJax error:', err));
-        }, 100);
-    }
+        // Re-typeset maths in chunks to avoid blocking
+        if (window.MathJax && MathJax.typesetPromise) {
+            typesetMathInChunks(container);
+        }
+    });
     
     return Promise.resolve();
+}
+
+// Typeset math in smaller chunks to avoid UI freeze
+function typesetMathInChunks(container) {
+    // Quick check if there's any math content
+    const hasInlineMath = container.innerHTML.includes('$') || container.innerHTML.includes('\\(');
+    const hasDisplayMath = container.innerHTML.includes('$$') || container.innerHTML.includes('\\[');
+    
+    if (!hasInlineMath && !hasDisplayMath) {
+        return; // No math to typeset
+    }
+    
+    // Find all elements that might contain math
+    const mathElements = container.querySelectorAll('p, li, .step-content, .answer-box, .problem-container > p');
+    if (mathElements.length === 0) return;
+    
+    const chunks = [];
+    const chunkSize = 8; // Larger chunks for faster processing
+    
+    for (let i = 0; i < mathElements.length; i += chunkSize) {
+        chunks.push(Array.from(mathElements).slice(i, i + chunkSize));
+    }
+    
+    let chunkIndex = 0;
+    
+    function processNextChunk() {
+        if (chunkIndex >= chunks.length) return;
+        
+        const chunk = chunks[chunkIndex];
+        chunkIndex++;
+        
+        MathJax.typesetPromise(chunk)
+            .then(() => {
+                // Process next chunk with minimal delay
+                if (chunkIndex < chunks.length) {
+                    requestAnimationFrame(processNextChunk);
+                }
+            })
+            .catch(err => {
+                console.warn('MathJax chunk error:', err);
+                // Continue even on error
+                if (chunkIndex < chunks.length) {
+                    requestAnimationFrame(processNextChunk);
+                }
+            });
+    }
+    
+    // Start processing immediately
+    processNextChunk();
 }
 
 // Create navigation entries and empty sections for markdown-backed chapters (1–39)
@@ -381,46 +433,48 @@ function initMarkdownChapters() {
             // Reset nav list to avoid any leftover static items
             navList.innerHTML = '';
 
+            // Use DocumentFragment for faster DOM insertions
+            const navFragment = document.createDocumentFragment();
+            const mainFragment = document.createDocumentFragment();
+            
             chapters.forEach(ch => {
-                // Add nav link if not already present
-                if (!document.querySelector(`nav a[href="#chapter${ch.id}"]`)) {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = `#chapter${ch.id}`;
-                    a.textContent = `Ch ${ch.id}`;
-                    a.title = `Chapter ${ch.id}: ${ch.title}`; // Full title on hover
-                    li.appendChild(a);
-                    navList.appendChild(li);
-                }
+                // Add nav link
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#chapter${ch.id}`;
+                a.textContent = `Ch ${ch.id}`;
+                a.title = `Chapter ${ch.id}: ${ch.title}`;
+                li.appendChild(a);
+                navFragment.appendChild(li);
 
-                // Add a section placeholder if it does not yet exist
-                if (!document.getElementById(`chapter${ch.id}`)) {
-                    const section = document.createElement('section');
-                    section.id = `chapter${ch.id}`;
-                    section.style.display = 'none';
+                // Add a section placeholder
+                const section = document.createElement('section');
+                section.id = `chapter${ch.id}`;
+                section.style.display = 'none';
 
-                    const titleEl = document.createElement('h1');
-                    titleEl.className = 'chapter-title';
-                    titleEl.textContent = `Chapter ${ch.id}: ${ch.title}`;
+                const titleEl = document.createElement('h1');
+                titleEl.className = 'chapter-title';
+                titleEl.textContent = `Chapter ${ch.id}: ${ch.title}`;
 
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'section';
+                const wrapper = document.createElement('div');
+                wrapper.className = 'section';
 
-                    const mdContainer = document.createElement('div');
-                    mdContainer.className = 'chapter-md-content';
-                    mdContainer.dataset.mdFile = ch.md_file;
-                    
-                    // Add loading skeleton instead of loading content
-                    mdContainer.innerHTML = '<div class="content-skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div>';
+                const mdContainer = document.createElement('div');
+                mdContainer.className = 'chapter-md-content';
+                mdContainer.dataset.mdFile = ch.md_file;
+                
+                // Add loading skeleton instead of loading content
+                mdContainer.innerHTML = '<div class="content-skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div><div class="skeleton-line"></div></div>';
 
-                    wrapper.appendChild(mdContainer);
-                    section.appendChild(titleEl);
-                    section.appendChild(wrapper);
-                    main.appendChild(section);
-                    
-                    // DON'T preload - lazy load when navigated to
-                }
+                wrapper.appendChild(mdContainer);
+                section.appendChild(titleEl);
+                section.appendChild(wrapper);
+                mainFragment.appendChild(section);
             });
+            
+            // Single DOM insertion for all chapters
+            navList.appendChild(navFragment);
+            main.appendChild(mainFragment);
 
             // Build simple TOC from chapter data (not content)
             buildSimpleTOC(chapters);
@@ -451,22 +505,32 @@ function buildSimpleTOC(chapters) {
     const ul = document.createElement('ul');
     ul.className = 'toc-list';
     
+    const fragment = document.createDocumentFragment();
+    
     chapters.forEach(ch => {
         const li = document.createElement('li');
         li.className = 'toc-chapter';
         const a = document.createElement('a');
         a.href = `#chapter${ch.id}`;
         a.textContent = `${ch.id}. ${ch.title}`;
-        a.addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateToChapter(`chapter${ch.id}`);
-        });
         li.appendChild(a);
-        ul.appendChild(li);
+        fragment.appendChild(li);
     });
     
+    ul.appendChild(fragment);
     tocBody.innerHTML = '';
     tocBody.appendChild(ul);
+    
+    // Use event delegation for TOC clicks
+    tocBody.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            navigateToChapter(href.substring(1));
+        }
+    });
 }
 
 // Convert markdown "Example ... / Solution" sections into step-by-step
